@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy — Aegis Stratos</title>
+<meta name="description" content="Aegis Stratos — Protection Through Innovation. Humanitarian defence partner delivering mission-ready AI systems to protect civilian lives.">
+<link rel="icon" href="assets/favicon.svg">
+<meta property="og:title" content="Privacy — Aegis Stratos">
+<meta property="og:description" content="Protection Through Innovation — humanitarian defence systems with responsible AI and operational resilience.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/logos/IMG_7564.PNG">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header>
+<div class="container">
+<nav id="nav">
+<a href="index.html" class="brand" aria-label="Aegis Stratos">
+<img src="assets/favicon.svg" alt="" width="26" height="26" style="vertical-align:middle;margin-right:.5rem">
+<strong>Aegis Stratos</strong>
+</a>
+<button class="menu" id="menu" aria-label="Open menu">Menu</button>
+<div class="links" id="links">
+<a href="index.html">Home</a>
+<a href="newsroom.html">Newsroom</a>
+<a href="index.html#contact" class="btn btn-primary">Contact us</a>
+</div>
+</nav>
+</div>
+</header>
+<script>
+const nav=document.getElementById('nav');
+const menu=document.getElementById('menu');
+menu&&menu.addEventListener('click',()=>nav.classList.toggle('open'));
+const path=location.pathname.replace(/\/$/,'').replace(/\/index\.html$/,'');
+document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===path)a.setAttribute('aria-current','page')});
+</script>
+<main id="main">
+<section class="section" aria-labelledby="privacy-title">
+<div class="container">
+<h1 id="privacy-title">Privacy Policy</h1>
+<p>We respect your privacy and keep data collection to a minimum. This site does not use tracking cookies. If you submit the contact form, we process your details solely to respond to your enquiry and maintain a short record of the conversation.</p>
+<ul>
+<li><strong>What we collect:</strong> your name, organisation, email address and message content.</li>
+<li><strong>Why we collect it:</strong> to respond to your enquiry and maintain basic records for accountability.</li>
+<li><strong>How long we keep it:</strong> up to 12 months unless a longer period is required for compliance.</li>
+<li><strong>Your choices:</strong> you can request a copy or deletion of your enquiry data at any time using the contact form — please mention “Privacy” in your message.</li>
+<li><strong>Security:</strong> we use reputable third-party form delivery to transmit your message securely to our inbox.</li>
+</ul>
+</div>
+</section>
+</main>
+<footer role="contentinfo">
+<div class="container">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+<div><span id="y"></span> © Aegis Stratos. All rights reserved.</div>
+<div><a href="privacy.html" style="color:#fff;text-decoration:underline">Privacy</a></div>
+</div>
+</div>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>

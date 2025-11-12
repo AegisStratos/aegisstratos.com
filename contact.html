@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Aegis Stratos</title>
+    <meta name="description" content="Get in touch with Aegis Stratos to discuss partnership opportunities and investment.">
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="logo-link">
+                <img src="assets/logos/IMG_7558.PNG" alt="Aegis Stratos" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" style="margin-top: 120px;">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>We welcome enquiries from investors, partners, and organisations aligned with our mission. Please complete the form below and we will respond within 48 hours.</p>
+            
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="organisation">Organisation</label>
+                    <input type="text" id="organisation" name="organisation">
+                </div>
+                
+                <div class="form-group">
+                    <label for="enquiry-type">Enquiry Type *</label>
+                    <select id="enquiry-type" name="enquiry-type" required>
+                        <option value="">Please select...</option>
+                        <option value="investment">Investment Opportunity</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="media">Media Enquiry</option>
+                        <option value="general">General Enquiry</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Aegis Stratos. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a></p>
+        </div>
+    </footer>
+</body>
+</html>

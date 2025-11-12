@@ -26,6 +26,15 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem
 .menu{display:none;background:var(--gold);color:var(--navy);border:none;padding:.4rem .8rem;border-radius:4px;font-weight:600;cursor:pointer}
 .links{display:flex;gap:.75rem}
 .links a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem;transition:color .2s;letter-spacing:.05em}
+
+/* Desktop: Show only centered brand text */
+@media (min-width:861px){
+  .brand img{display:none}
+  nav{justify-content:center}
+  .nav-links{display:none}
+  .menu{display:none}
+  .brand-text{display:block!important}
+}
 .links a:hover,.links a[aria-current="page"]{color:var(--white)}
 
 @media (max-width:860px){

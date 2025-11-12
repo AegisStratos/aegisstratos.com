@@ -1,5 +1,5 @@
 /* Aegis Stratos - Professional Corporate Design */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
 
 :root{
 --navy:#0a1f3d;
@@ -11,7 +11,9 @@
 
 *{margin:0;padding:0;box-sizing:border-box}
 html{color-scheme:light}
-body{font-family:'Inter',-apple-system,sans-serif;line-height:1.6;color:var(--navy);background:var(--white)}
+body{font-family:'Open Sans',-apple-system,sans-serif;line-height:1.6;color:var(--navy);background:var(--white)}
+
+h1,h2,h3{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:-.01em}
 
 /* Layout */
 .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
@@ -19,45 +21,40 @@ body{font-family:'Inter',-apple-system,sans-serif;line-height:1.6;color:var(--na
 /* Header & Nav */
 header{background:var(--navy);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--gold)}
 nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
-.brand{display:flex;align-items:center;color:var(--white);text-decoration:none;font-weight:700;gap:.5rem}
-.brand img{width:32px;height:32px}
+.brand{display:flex;flex-direction:column;align-items:center;text-decoration:none;gap:.25rem}
+.brand img{display:block}
 .menu{display:none;background:var(--gold);color:var(--navy);border:none;padding:.4rem .8rem;border-radius:4px;font-weight:600;cursor:pointer}
 .links{display:flex;gap:.75rem}
-.links a{color:var(--gold);text-decoration:none;font-weight:500;font-size:.9rem;transition:color .2s}
+.links a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem;transition:color .2s;letter-spacing:.05em}
 .links a:hover,.links a[aria-current="page"]{color:var(--white)}
 
 @media (max-width:860px){
 nav .links{display:none}
-nav.open .links{position:absolute;right:20px;top:50px;background:var(--navy);border:1px solid var(--gold);border-radius:8px;padding:.6rem;display:flex;flex-direction:column;gap:.4rem}
+nav.open .links{position:absolute;right:20px;top:60px;background:var(--navy);border:1px solid var(--gold);border-radius:8px;padding:.6rem;display:flex;flex-direction:column;gap:.4rem}
 .menu{display:inline-flex}
 }
 
-/* Buttons */
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.5rem;border-radius:4px;font-weight:600;border:1px solid transparent;text-decoration:none;cursor:pointer}
-.btn-primary{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-.btn-primary:hover{background:transparent;color:var(--gold)}
-.btn-outline{background:transparent;color:var(--navy);border-color:var(--navy)}
-.btn-outline:hover{background:var(--navy);color:var(--white)}
-header .btn-primary:hover{background:transparent;color:var(--white)}
-
 /* Hero */
-.hero{position:relative;min-height:70vh;display:flex;align-items:center;overflow:hidden;background:var(--navy);color:var(--white)}
+.hero{position:relative;min-height:75vh;display:flex;align-items:center;overflow:hidden;background:var(--navy);color:var(--white)}
 .hero .media{position:absolute;inset:0;z-index:0}
-.hero video{width:100%;height:100%;object-fit:cover;opacity:.4}
-.hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,31,61,.7),rgba(10,31,61,.9))}
-.hero .content{position:relative;z-index:1;padding:clamp(48px,8vw,96px) 0}
-.hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:.8rem;letter-spacing:-.02em}
-.hero p{font-size:clamp(.95rem,2vw,1.15rem);margin-bottom:.8rem;max-width:800px}
+.hero video{width:100%;height:100%;object-fit:cover;opacity:.65}
+.hero .overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,31,61,.95) 0%,rgba(10,31,61,.8) 40%,rgba(10,31,61,.3) 70%,transparent 100%)}
+.hero-content{position:relative;z-index:1;max-width:650px;padding:clamp(48px,8vw,96px) 0}
+.hero h1{font-size:clamp(2.25rem,5.5vw,4rem);font-weight:700;margin-bottom:.75rem;letter-spacing:-.02em;line-height:1.1}
+.hero-subtitle{font-size:clamp(1.15rem,2.5vw,1.5rem);font-weight:600;margin-bottom:1rem;font-family:'Oswald',sans-serif}
+.hero-text{font-size:clamp(.95rem,1.8vw,1.1rem);margin-bottom:.75rem;line-height:1.6}
 
 /* Sections */
 .section{padding:clamp(48px,7vw,80px) 0}
 
-/* Cards */
-.card{background:var(--white);border:1px solid var(--grey);border-radius:8px;padding:20px}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.5rem;border-radius:4px;font-weight:600;border:1px solid transparent;text-decoration:none;cursor:pointer;font-family:'Oswald',sans-serif;letter-spacing:.05em}
+.btn-primary{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.btn-primary:hover{background:transparent;color:var(--gold)}
 
 /* Forms */
 input,textarea{width:100%;padding:.6rem;border-radius:8px;border:1px solid var(--gold);background:var(--navy);color:var(--white);font-family:inherit}
-label{display:block;margin-bottom:.8rem;color:var(--white)}
+label{display:block;margin-bottom:.8rem;color:var(--white);font-weight:600}
 
 /* Footer */
 footer{background:var(--navy);color:var(--white);padding:20px 0;margin-top:0;border-top:1px solid var(--gold)}

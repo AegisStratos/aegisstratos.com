@@ -1,41 +1,58 @@
-<!DOCTYPE html>
-<html lang="en-GB">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newsroom — Aegis Stratos</title>
-    <meta name="description" content="Latest news and updates from Aegis Stratos.">
-    <link rel="icon" href="assets/favicon.svg">
-    <link rel="stylesheet" href="assets/styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Newsroom — Aegis Stratos</title>
+<meta name="description" content="Aegis Stratos — Protection Through Innovation. Humanitarian defence partner delivering mission-ready AI systems to protect civilian lives.">
+<link rel="icon" href="assets/favicon.svg">
+<meta property="og:title" content="Newsroom — Aegis Stratos">
+<meta property="og:description" content="Protection Through Innovation: humanitarian defence systems with responsible AI and operational resilience.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/logos/IMG_7564.PNG">
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="/" class="logo-link">
-                <img src="assets/logos/IMG_7558.PNG" alt="Aegis Stratos" class="logo">
-            </a>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="newsroom.html">Newsroom</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <section class="section" style="margin-top: 120px;">
-        <div class="container">
-            <h2>Newsroom</h2>
-            <div class="newsroom-empty">
-                <p>No stories yet. Check back soon for updates.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Aegis Stratos. All rights reserved.</p>
-            <p><a href="privacy.html">Privacy Policy</a></p>
-        </div>
-    </footer>
+<header>
+<div class="container">
+<nav id="nav">
+<a href="index.html" class="brand" aria-label="Aegis Stratos"><img src="assets/favicon.svg" alt="" width="26" height="26" style="vertical-align:middle;margin-right:.5rem"><strong>Aegis Stratos</strong></a>
+<button class="menu" id="menu" aria-label="Open menu">Menu</button>
+<div class="links" id="links">
+<a href="index.html">Home</a>
+<a href="newsroom.html">Newsroom</a>
+<a href="index.html#contact" class="btn btn-primary">Contact us</a>
+</div>
+</nav>
+</div>
+</header>
+<script>
+const nav=document.getElementById('nav');
+const menu=document.getElementById('menu');
+menu&&menu.addEventListener('click',()=>nav.classList.toggle('open'));
+const path=location.pathname.replace(/\//,'index.html');
+document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===path)a.setAttribute('aria-current','page');});
+</script>
+<main id="main">
+<section class="section" aria-labelledby="newsroom-title">
+<div class="container">
+<h1 id="newsroom-title">Newsroom</h1>
+<p>This is the official source for Aegis Stratos announcements, investor updates and media resources.</p>
+<div class="card">
+<h2>Coming soon</h2>
+<p>We're preparing our first releases and media kits. Please use the contact form for press enquiries in the meantime.</p>
+</div>
+</div>
+</section>
+</main>
+<footer role="contentinfo">
+<div class="container">
+<div style="display:flex;flex-wrap:wrap;gap:1.2px;align-items:center;justify-content:space-between">
+<div><span id="y"></span> Aegis Stratos. All rights reserved.</div>
+<div><a href="privacy.html" style="color:#fff;text-decoration:underline">Privacy</a></div>
+</div>
+</div>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
 </body>
 </html>

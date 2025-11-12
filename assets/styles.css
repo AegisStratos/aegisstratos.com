@@ -33,6 +33,7 @@ nav .links{display:none}
 nav.open .links{position:absolute;right:20px;top:60px;background:var(--navy);border:1px solid var(--gold);border-radius:8px;padding:.6rem;display:flex;flex-direction:column;gap:.4rem}
 .menu{display:inline-flex}
 }
+.brand-text{display:none}
 
 /* Hero */
 .hero{position:relative;min-height:75vh;display:flex;align-items:center;overflow:hidden;background:var(--navy);color:var(--white)}

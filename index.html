@@ -16,7 +16,10 @@
 <header>
 <div class="container">
 <nav id="nav">
-<a href="index.html" class="brand" aria-label="Aegis Stratos"><img src="assets/favicon.svg" alt="" width="48" height="48" style="vertical-align:middle;margin-right:.5rem"><strong style="color:#D4AF37;font-size:1.1rem">AEGIS<br>STRATOS</strong></a>
+<a href="index.html" class="brand" aria-label="Aegis Stratos">
+<img src="assets/logos/IMG_7564.PNG" alt="Aegis Stratos" width="80" height="80" style="display:block">
+<div style="margin-top:.25rem;text-align:center;line-height:1.2"><strong style="color:#D4AF37;font-size:.95rem;display:block">AEGIS</strong><strong style="color:#D4AF37;font-size:.95rem;display:block">STRATOS</strong></div>
+</a>
 <button class="menu" id="menu" aria-label="Open menu">Menu</button>
 <div class="links" id="links">
 <a href="newsroom.html" style="color:#D4AF37">NEWS</a>
@@ -38,11 +41,13 @@ document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===pa
 <video src="assets/AEGIS STRAROS.mp4" autoplay muted loop playsinline poster=""></video>
 <div class="overlay"></div>
 </div>
-<div class="container content">
-<h1 id="hero-title" style="font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:1rem">PROTECTION THROUGH INNOVATION</h1>
-<p style="font-size:1.25rem;font-weight:600;margin-bottom:1rem">Protection Through Innovation</p>
-<p style="font-size:1.05rem;margin-bottom:.8rem">Humanitarian-defence-systems engineered through AI, allied expertise, and operational partnership with Ukraine.</p>
-<p style="font-size:1.05rem;margin-bottom:1.5rem">Built in Britain. Proven in partnership. Trusted by allies.</p>
+<div class="container">
+<div class="hero-content">
+<h1 id="hero-title">PROTECTION THROUGH INNOVATION</h1>
+<p class="hero-subtitle">Protection Through Innovation</p>
+<p class="hero-text">Humanitarian-defence-systems engineered through AI, allied expertise, and operational partnership with Ukraine.</p>
+<p class="hero-text">Built in Britain. Proven in partnership. Trusted by allies.</p>
+</div>
 </div>
 </section>
 
@@ -74,13 +79,15 @@ document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===pa
 <p style="margin-bottom:1rem">For partnership or investor enquiries.</p>
 <form id="contact-form" class="form" aria-describedby="contact-help">
 <label style="display:block;margin-bottom:.8rem">Name <input name="name" required autocomplete="name" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff"></label>
-<label style="display:block;margin-bottom:.8rem">Email <input type="email" name="email" required autocomplete="email" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff"></label>
+<label style="display:block;margin-bottom:.8rem">Email <input type="email" name="email" 
+                                                         <label style="display:block;margin-bottom:.8rem">Message <textarea name="message" required rows="4" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff;font-family:inherit;resize:vertical"></textarea></label>required autocomplete="email" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff"></label>
 <div class="status" id="status" role="status" aria-live="polite"></div>
 <button class="btn btn-primary" type="submit" style="background:#D4AF37;color:#000;padding:.6rem 1.2rem;border-radius:8px;border:none;font-weight:600;cursor:pointer">Send message</button>
 </form>
 </div>
 </div>
 </div>
+  <p style="font-size:.85rem;color:#999;margin-top:.5rem">This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</p>
 </section>
 </main>
 <script src="assets/snippets/contact.js"></script>

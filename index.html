@@ -1,140 +1,87 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Aegis Stratos — Protection Through Innovation</title>
-<meta name="description" content="Aegis Stratos — Protection Through Innovation. Humanitarian defence partner delivering mission-ready AI systems to protect civilian lives.">
-<link rel="icon" href="assets/favicon.svg">
-<meta property="og:title" content="Aegis Stratos — Protection Through Innovation">
-<meta property="og:description" content="Protection Through Innovation — humanitarian defence systems with responsible AI and operational resilience.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="assets/logos/IMG_7564.PNG">
-<link rel="stylesheet" href="assets/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis Stratos — Protection Through Innovation</title>
+    <meta name="description" content="Aegis Stratos develops next-generation uncrewed aerial systems enhanced by AI for humanitarian defence and civilian protection.">
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-<header>
-<div class="container">
-<nav id="nav">
-<a href="index.html" class="brand" aria-label="Aegis Stratos">
-<img src="assets/favicon.svg" alt="" width="26" height="26" style="vertical-align:middle;margin-right:.5rem">
-<strong>Aegis Stratos</strong>
-</a>
-<button class="menu" id="menu" aria-label="Open menu">Menu</button>
-<div class="links" id="links">
-<a href="index.html">Home</a>
-<a href="newsroom.html">Newsroom</a>
-<a href="#contact" class="btn btn-primary">Contact us</a>
-</div>
-</nav>
-</div>
-</header>
-<script>
-const nav=document.getElementById('nav');
-const menu=document.getElementById('menu');
-menu&&menu.addEventListener('click',()=>nav.classList.toggle('open'));
-const path=location.pathname.replace(/\/$/,'').replace(/\/index\.html$/,'');
-document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===path)a.setAttribute('aria-current','page')});
-</script>
-<main id="main">
-<section class="hero" aria-labelledby="hero-title">
-<div class="media" aria-hidden="true">
-<video src="media/hero.mp4" autoplay muted loop playsinline poster="media/hero-poster.jpg"></video>
-</div>
-<div class="overlay"></div>
-<div class="container content">
-<h1 id="hero-title">Aegis Stratos — Protection Through Innovation</h1>
-<p>A humanitarian-defence partner to allied governments and organisations. We deliver mission-ready AI systems that protect civilian lives with responsible innovation and operational resilience.</p>
-<div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:12px">
-<a class="btn btn-primary" href="#contact">Contact us</a>
-<a class="btn btn-outline" href="newsroom.html">Newsroom</a>
-</div>
-</div>
-</section>
-<section class="section" aria-labelledby="mission">
-<div class="container">
-<h2 id="mission">Mission</h2>
-<p>Aegis Stratos exists to protect civilians. We integrate trusted sensors with responsible AI to provide real-time situational awareness and safe autonomy—aligned with international humanitarian law.</p>
-</div>
-</section>
-<section class="section" aria-labelledby="capabilities">
-<div class="container">
-<h2 id="capabilities">Core capabilities</h2>
-<div class="grid-3" style="margin-top:12px">
-<article class="card">
-<h3>Detect</h3>
-<p>Fuse radar, RF and EO/IR into one trusted operating picture.</p>
-</article>
-<article class="card">
-<h3>Decide</h3>
-<p>Edge AI classifies, prioritises and recommends policy-based actions under human oversight.</p>
-</article>
-<article class="card">
-<h3>Deter</h3>
-<p>Integrated responses that keep people and critical infrastructure safe.</p>
-</article>
-</div>
-</div>
-</section>
-<section class="section" aria-labelledby="tech">
-<div class="container">
-<h2 id="tech">Technology highlights</h2>
-<div class="grid-3" style="margin-top:12px">
-<article class="card">
-<h3>Sensor fusion</h3>
-<p>Heterogeneous inputs, coherent tracks.</p>
-</article>
-<article class="card">
-<h3>Edge AI</h3>
-<p>Low-latency decisions at the edge with auditability.</p>
-</article>
-<article class="card">
-<h3>Interoperability</h3>
-<p>NATO-aligned interfaces and secure integration.</p>
-</article>
-</div>
-</div>
-</section>
-<section class="section" aria-labelledby="news">
-<div class="container">
-<h2 id="news">News updates</h2>
-<p>Visit the newsroom for official statements and programme updates.</p>
-<p><a class="btn btn-outline" href="newsroom.html">Go to newsroom</a></p>
-</div>
-</section>
-<section class="section" id="contact" aria-labelledby="contact-title">
-<div class="container">
-<h2 id="contact-title">Investor & partner enquiries</h2>
-<p>Tell us about your organisation and objectives. We'll respond within two business days.</p>
-<div class="card">
-<form id="contact-form" class="form" aria-describedby="contact-help">
-<div class="form-row">
-<label>Full name <input name="name" required autocomplete="name"></label>
-<label>Organisation <input name="organisation" autocomplete="organization"></label>
-<label>Email <input type="email" name="email" required autocomplete="email"></label>
-<label>Message <textarea name="message" rows="6" required minlength="20"></textarea></label>
-<label class="consent"><input type="checkbox" name="consent" required> <span>I agree to be contacted regarding my enquiry and understand that my details will be processed to respond to my request.</span></label>
-<div class="status" id="status" role="status" aria-live="polite"></div>
-<div style="display:flex;gap:.6rem;flex-wrap:wrap">
-<button class="btn btn-primary" type="submit">Send message</button>
-<button class="btn btn-outline" type="reset">Reset</button>
-</div>
-<p id="contact-help" class="status">This form sends securely to Aegis Stratos.</p>
-</div>
-</form>
-</div>
-</div>
-</section>
-<script src="assets/snippets/contact.js"></script>
-</main>
-<footer role="contentinfo">
-<div class="container">
-<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
-<div><span id="y"></span> © Aegis Stratos. All rights reserved.</div>
-<div><a href="privacy.html" style="color:#fff;text-decoration:underline">Privacy</a></div>
-</div>
-</div>
-</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="logo-link">
+                <img src="assets/logos/IMG_7558.PNG" alt="Aegis Stratos" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="assets/AEGIS STRAROS.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Protection Through Innovation</h1>
+                <p class="hero-subtitle">Next-generation uncrewed aerial systems for humanitarian defence</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p class="lead">Aegis Stratos was born from the anguish of watching ordinary people in Ukraine live beneath bombardment and fear — families forced underground, towns erased, and lives destroyed simply for wanting to be free.</p>
+            <p>We exist to change that — to harness technology and human ingenuity in the defence of the innocent, the vulnerable, and the persecuted. Our mission is simple but profound: to save lives through intelligent flight.</p>
+            <p>Aegis Stratos is developing the next generation of uncrewed aerial systems (UAS) enhanced by artificial intelligence — designed not for aggression but for protection, rescue, and resilience. Our systems are being engineered to detect threats faster, guide evacuations, deliver emergency supplies, restore communications, and provide the situational awareness that can mean the difference between life and death.</p>
+            <p>We believe that technology, when guided by conscience, can defend freedom and preserve humanity. That conviction defines every decision we make, from design and sourcing to recruitment and partnerships.</p>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2>Founded on Purpose</h2>
+            <p>When the invasion of Ukraine began, we watched engineers, volunteers, and soldiers improvise with whatever tools they could find. Drone technology proved transformative — yet access to reliable, secure, mission-ready systems was scarce. We realised that a company rooted in ethical AI and disciplined engineering could fill this gap: producing drones specifically built for humanitarian-defence operations.</p>
+            <p>Drawing on extensive experience in product engineering leadership and large-scale transformation programmes, we saw how advanced AI and modern engineering practices could be channelled into humanitarian defence. That philosophy now underpins Aegis Stratos.</p>
+            <p>Among the first to join were experienced leaders from Swedish Air Force, NATO representation, defence contracting, telecommunications, and defence-industry sales with firms including Saab Aerospace & Defence. Most critically, we secured partnership with a serving member of the Ukrainian military — a recognised leader in Ukraine's drone programme.</p>
+            <div class="principles">
+                <div class="principle">
+                    <h3>Humanitarian Focus First</h3>
+                    <p>Every system must protect or save life</p>
+                </div>
+                <div class="principle">
+                    <h3>Sovereign Supply Chain</h3>
+                    <p>UK-first, NATO-only sourcing within 3 years</p>
+                </div>
+                <div class="principle">
+                    <h3>AI-Driven Innovation</h3>
+                    <p>Continuous learning across design, build, and deployment</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Partnership & Proof of Purpose</h2>
+            <p>Aegis Stratos is an emerging venture built around experienced people, proven leadership, and a partnership that few others possess. Our strength lies in our operational partner in Ukraine — a serving member of the Ukrainian military and a recognised leader in Ukraine's drone-production programme.</p>
+            <p>Through this partnership we maintain a direct, trusted link to Ukraine's defence-manufacturing ecosystem, giving us real-time insight into battlefield requirements and immediate access to validated designs and operational feedback. This partnership is a working alliance, not a memorandum of intent: it ensures every design decision we make aligns with real operational need.</p>
+            <p>We are a start-up seeking funding to build our first aircraft — to prove capability before claiming scale. Our initial objective is simple and measurable: to design, build, and ship the first generation of humanitarian-defence drones in the UK under Ukrainian guidance and, where appropriate, licence.</p>
+            <p class="emphasis">Credibility in defence is earned through action, and our credibility will begin with delivery.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Aegis Stratos. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a></p>
+        </div>
+    </footer>
 </body>
 </html>

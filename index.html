@@ -1,92 +1,137 @@
-<!DOCTYPE html>
-<html lang="en-GB">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aegis Stratos — Protection Through Innovation</title>
-    <meta name="description" content="Next-generation AI-enhanced UAS for humanitarian defence. UK-based, NATO-aligned.">
-    <link rel="icon" href="assets/favicon.svg">
-    <link rel="stylesheet" href="assets/styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aegis Stratos — Protection Through Innovation</title>
+<meta name="description" content="Aegis Stratos — Protection Through Innovation. Humanitarian defence partner delivering mission-ready AI systems to protect civilian lives.">
+<link rel="icon" href="assets/favicon.svg">
+<meta property="og:title" content="Aegis Stratos — Protection Through Innovation">
+<meta property="og:description" content="Protection Through Innovation: humanitarian defence systems with responsible AI and operational resilience.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/logos/IMG_7564.PNG">
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="/" class="logo-link">
-                <img src="assets/logos/IMG_7558.PNG" alt="Aegis Stratos" class="logo">
-            </a>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="newsroom.html">Newsroom</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="assets/AEGIS STRAROS.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <h1>Protection Through Innovation</h1>
-                <p class="hero-subtitle">AI-enhanced uncrewed aerial systems for humanitarian defence</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section section-blue">
-        <div class="container">
-            <h2>Defending Freedom. Saving Lives.</h2>
-            <p class="lead">Born from the urgency of Ukraine's defence, Aegis Stratos develops next-generation UAS designed for protection, rescue, and resilience.</p>
-            <p>Our systems detect threats, guide evacuations, deliver critical supplies, and restore communications—providing the situational awareness that saves lives.</p>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h2>Built for Purpose</h2>
-            <p class="lead">When crisis demands action, improvisation isn't enough. We're engineering mission-ready systems backed by proven defence expertise.</p>
-            <p>Our team brings leadership from Swedish Air Force, NATO operations, Saab Aerospace & Defence, and Ukraine's active drone programme. Most critically, we maintain a direct operational partnership with Ukraine's military—ensuring every design meets real battlefield requirements.</p>
-        </div>
-    </section>
-
-    <section class="section section-blue">
-        <div class="container">
-            <h2>Our Principles</h2>
-            <div class="principles">
-                <div class="principle">
-                    <div class="principle-icon">🛡️</div>
-                    <h3>Humanitarian First</h3>
-                    <p>Every system protects or saves life</p>
-                </div>
-                <div class="principle">
-                    <div class="principle-icon">🇬🇧</div>
-                    <h3>Sovereign Supply</h3>
-                    <p>UK-first, NATO-only sourcing</p>
-                </div>
-                <div class="principle">
-                    <div class="principle-icon">🤖</div>
-                    <h3>AI-Driven</h3>
-                    <p>Continuous operational learning</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container cta-section">
-            <h2>Ready to Build</h2>
-            <p class="lead">We're seeking funding to prove capability through delivery. Our objective: design, build, and ship the first generation of UK-manufactured humanitarian-defence drones under Ukrainian operational guidance.</p>
-            <p class="emphasis">In defence, credibility is earned through action. Our credibility begins with delivery.</p>
-            <a href="contact.html" class="btn-primary">Get In Touch</a>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Aegis Stratos. All rights reserved.</p>
-            <p><a href="privacy.html">Privacy Policy</a></p>
-        </div>
-    </footer>
+<header>
+<div class="container">
+<nav id="nav">
+<a href="index.html" class="brand" aria-label="Aegis Stratos"><img src="assets/favicon.svg" alt="" width="26" height="26" style="vertical-align:middle;margin-right:.5rem"><strong>Aegis Stratos</strong></a>
+<button class="menu" id="menu" aria-label="Open menu">Menu</button>
+<div class="links" id="links">
+<a href="index.html">Home</a>
+<a href="newsroom.html">Newsroom</a>
+<a href="#contact" class="btn btn-primary">Contact us</a>
+</div>
+</nav>
+</div>
+</header>
+<script>
+const nav=document.getElementById('nav');
+const menu=document.getElementById('menu');
+menu&&menu.addEventListener('click',()=>nav.classList.toggle('open'));
+const path=location.pathname.replace(/\//,'index.html');
+document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===path)a.setAttribute('aria-current','page');});
+</script>
+<main id="main">
+<section class="hero" aria-labelledby="hero-title">
+<div class="media" aria-hidden="true">
+<video src="media/hero.mp4" autoplay muted loop playsinline poster="media/hero-poster.jpg"></video>
+<div class="overlay"></div>
+</div>
+<div class="container content">
+<h1 id="hero-title">Aegis Stratos — Protection Through Innovation</h1>
+<p>A humanitarian-defence partner to allied governments and organisations. We deliver mission-ready AI systems that protect civilian lives with responsible innovation and operational resilience.</p>
+<div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2px">
+<a class="btn btn-primary" href="#contact">Contact us</a>
+<a class="btn btn-outline" href="newsroom.html">Newsroom</a>
+</div>
+</div>
+</section>
+<section class="section" aria-labelledby="mission">
+<div class="container">
+<h2 id="mission">Mission</h2>
+<p>Aegis Stratos exists to protect civilians. We integrate trusted sensors with responsible AI to provide real-time situational awareness and safe autonomy—aligned with international humanitarian law.</p>
+</div>
+</section>
+<section class="section" aria-labelledby="capabilities">
+<div class="container">
+<h2 id="capabilities">Core capabilities</h2>
+<div class="grid-3" style="margin-top:1.2px">
+<article class="card">
+<h3>Detect</h3>
+<p>Fuse radar, RF and EO/IR into one trusted operating picture.</p>
+</article>
+<article class="card">
+<h3>Decide</h3>
+<p>Edge AI classifies, prioritises and recommends policy-based actions under human oversight.</p>
+</article>
+<article class="card">
+<h3>Deter</h3>
+<p>Integrated responses that keep people and critical infrastructure safe.</p>
+</article>
+</div>
+</div>
+</section>
+<section class="section" aria-labelledby="tech">
+<div class="container">
+<h2 id="tech">Technology highlights</h2>
+<div class="grid-3" style="margin-top:1.2px">
+<article class="card">
+<h3>Sensor fusion</h3>
+<p>Heterogeneous inputs, coherent tracks.</p>
+</article>
+<article class="card">
+<h3>Edge AI</h3>
+<p>Low-latency decisions at the edge with auditability.</p>
+</article>
+<article class="card">
+<h3>Interoperability</h3>
+<p>NATO-aligned interfaces and secure integration.</p>
+</article>
+</div>
+</div>
+</section>
+<section class="section" aria-labelledby="news">
+<div class="container">
+<h2 id="news">News updates</h2>
+<p>Visit the newsroom for official statements and programme updates.</p>
+<p><a class="btn btn-outline" href="newsroom.html">Go to newsroom</a></p>
+</div>
+</section>
+<section class="section" id="contact" aria-labelledby="contact-title">
+<div class="container">
+<h2 id="contact-title">Investor & partner enquiries</h2>
+<p>Tell us about your organisation and objectives. We'll respond within two business days.</p>
+<div class="card">
+<form id="contact-form" class="form" aria-describedby="contact-help">
+<div class="form-row">
+<label>Full name <input name="name" required autocomplete="name"></label>
+<label>Organisation <input name="organisation" autocomplete="organization"></label>
+</div>
+<label>Email <input type="email" name="email" required autocomplete="email"></label>
+<label>Message <textarea name="message" rows="6" required minlength="20"></textarea></label>
+<label class="consent"><input type="checkbox" name="consent" required> <span>I agree to be contacted regarding my enquiry and understand that my details will be processed to respond to my request.</span></label>
+<div class="status" id="status" role="status" aria-live="polite"></div>
+<div style="display:flex;gap:.6rem;flex-wrap:wrap">
+<button class="btn btn-primary" type="submit">Send message</button>
+<button class="btn btn-outline" type="reset">Reset</button>
+</div>
+<p id="contact-help" class="status">This form sends securely to Aegis Stratos.</p>
+</form>
+</div>
+</div>
+</section>
+</main>
+<script src="assets/snippets/contact.js"></script>
+<footer role="contentinfo">
+<div class="container">
+<div style="display:flex;flex-wrap:wrap;gap:1.2px;align-items:center;justify-content:space-between">
+<div><span id="y"></span> Aegis Stratos. All rights reserved.</div>
+<div><a href="privacy.html" style="color:#fff;text-decoration:underline">Privacy</a></div>
+</div>
+</div>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
 </body>
 </html>

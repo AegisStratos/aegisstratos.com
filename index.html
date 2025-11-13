@@ -1,100 +1,95 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Aegis Stratos — Protection Through Innovation</title>
-<meta name="description" content="Aegis Stratos — Protection Through Innovation. Humanitarian-defence-systems engineered through AI, allied expertise, and operational partnership with Ukraine.">
-<link rel="icon" href="assets/favicon.svg">
-<meta property="og:title" content="Aegis Stratos — Protection Through Innovation">
-<meta property="og:description" content="Protection Through Innovation: humanitarian defence systems with responsible AI and operational resilience.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="assets/logos/750A099C-CD56-4A6B-89F8-A3BA4959C6BB.png">
-<link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
-<header>
-<div class="container">
-<nav id="nav">
-<a href="index.html" class="logo-link" aria-label="Aegis Stratos"><img src="assets/logos/750A099C-CD56-4A6B-89F8-A3BA4959C6BB.png" alt="Aegis Stratos" width="80" height="80" style="display:block"></a>
-<div class="brand-text">AEGIS STRATOS</div><button class="menu" id="menu" aria-label="Open menu">Menu</button><div class="links" id="links">
-<a href="#news-title" style="color:#D4AF37">NEWS</a>
-<a href="#contact" style="color:#D4AF37">CONTACT</a>
-</div>
-</nav>
-</div>
-</header>
-<script>
-const nav=document.getElementById('nav');
-const menu=document.getElementById('menu');
-menu&&menu.addEventListener('click',()=>nav.classList.toggle('open'));
-const path=location.pathname.replace(/\//,'index.html');
-document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')===path)a.setAttribute('aria-current','page');});
-</script>
-<main id="main">
-<section class="hero" aria-labelledby="hero-title">
-<div class="media" aria-hidden="true">
-<video src="assets/AEGIS STRAROS.mp4" autoplay muted loop playsinline poster=""></video>
-<div class="overlay"></div>
-</div>
-<div class="container">
-<div class="hero-content">
-<h1 id="hero-title">PROTECTION THROUGH INNOVATION</h1>
-<p class="hero-subtitle">Protection Through Innovation</p>
-<p class="hero-text">Humanitarian-defence-systems engineered through AI, allied expertise, and operational partnership with Ukraine.</p>
-<p style="color:#D4AF37;font-size:1.1rem;margin-bottom:1.5rem">Developed by Partnership. Built in Britain. Proven on the battlefield. Trusted by allies.</p>
-</div>
-</div>
-</section>
-<section class="section" aria-labelledby="war-title" style="background:#0A1A2F;color:#fff">
-<div class="container">
-<h2 id="war-title" style="color:#D4AF37;font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;margin-bottom:1rem">BORN FROM THE REALITIES OF WAR. BUILT TO REDEFINE DEFENCE.</h2>
-<p style="color:#D4AF37;font-size:1.1rem;margin-bottom:1.5rem">PROTECTION THROUGH INNOVATION — applied with purpose, built for resilience.</p>
-<p style="margin-bottom:1rem">Aegis Stratos was founded in response to a truth witnessed in Ukraine — that technology saves lives when it is shaped by those who face real threats and developed by those who know how to deliver at scale.
-As uncrewed systems began to redefine modern warfare, we recognised the need for a company that could unite Ukrainian operational ingenuity with advanced AI-driven engineering and disciplined programme delivery.
-</p>
-<p>This alignment brings together operational credibility, technical precision, and humanitarian intent — defining a new kind of defence company for a new era.</p>
-</div>
-</section>
-
-<section class="section" aria-labelledby="ai-title" style="background:#0A1A2F;color:#fff;border-top:1px solid #D4AF37">
-<div class="container">
-<h2 id="ai-title" style="color:#D4AF37;font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;margin-bottom:.5rem">AI NATIVE BY DESIGN</h2>
-<p style="margin-bottom:1rem">Aegis Stratos is an AI-First company. We build through it, with it, and because of it. Artificial intelligence defines how we innovate, manufacture, and operate — from automated design and digital simulation to predictive logistics and adaptive flight control.</p>
-<p>By embedding AI throughout both our aircraft and our organisation, we accelerate development cycles, enhance security, reduce cost, and react to changing threats at unprecedented speed.</p>
-</div>
-</section>
-
-<section class="section" id="contact" aria-labelledby="contact-title" style="background:#0A1A2F;color:#fff;border-top:1px solid #D4AF37">
-<div class="container">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px">
-<div>
-<h2 id="news-title" style="color:#D4AF37;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;margin-bottom:.5rem">NEWS & INSIGHTS</h2>
-<p>Coming soon – updates on AI innovation, operational testing, and allied colaboro.</p>
-</div>
-<div>
-<h2 id="contact-title" style="color:#D4AF37;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;margin-bottom:1rem">CONTACT AEGIS STRATOS</h2>
-<p style="margin-bottom:1rem">For partnership or investor enquiries.</p>
-<form id="contact-form" class="form" aria-describedby="contact-help">
-<label style="display:block;margin-bottom:.8rem">Name <input name="name" required autocomplete="name" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff"></label>
-<label style="display:block;margin-bottom:.8rem">Email <input type="email" name="email" required autocomplete="email" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff"></label>
-<label style="display:block;margin-bottom:.8rem">Message <textarea name="message" required rows="4" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff;font-family:inherit;resize:vertical"></textarea></label>
-<div class="status" id="status" role="status" aria-live="polite"></div>
-<button class="btn btn-primary" type="submit" style="background:#D4AF37;color:#000;padding:.6rem 1.2rem;border-radius:8px;border:none;font-weight:600;cursor:pointer">Send message</button>
-</form>
-</div>
-</div>
-</div>
-  <p style="font-size:.85rem;color:#999;margin-top:.5rem">This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</p>
-</section>
-</main>
-<script src="assets/snippets/contact.js"></script>
-<p class="recaptcha-text">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.</p><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
-<div><span id="y"></span> Aegis Stratos. All rights reserved.</div>
-<div><a href="privacy.html" style="color:#fff;text-decoration:underline">Privacy</a></div>
-</div>
-</div>
-</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
-</body>
-</html>
+<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <meta 
+name="viewport" content="width=device-width, initial-scale=1, viewport-
+fit=cover"> <title>Aegis Stratos — Protection Through Innovation</title> <meta 
+name="description" content="Aegis Stratos — Protection Through Innovation. 
+Humanitarian-defence-systems engineered through AI, allied expertise, and 
+operational partnership with Ukraine."> <link rel="icon" 
+href="assets/favicon.svg"> <meta property="og:title" content="Aegis Stratos — 
+Protection Through Innovation"> <meta property="og:description" 
+content="Protection Through Innovation: humanitarian defence systems with 
+responsible AI and operational resilience."> <meta property="og:type" 
+content="website"> <meta property="og:image" 
+content="assets/logos/750A099C-CD56-4A6B-89F8-A3BA4959C6BB.png"> <link 
+rel="stylesheet" href="assets/styles.css"> </head> <body> <header> <div 
+class="container"> <nav id="nav"> <a href="index.html" class="logo-link" aria-
+label="Aegis Stratos"><img 
+src="assets/logos/750A099C-CD56-4A6B-89F8-A3BA4959C6BB.png" alt="Aegis Stratos" 
+width="80" height="80" style="display:block"></a> <div class="brand-text">AEGIS 
+STRATOS</div><button class="menu" id="menu" aria-label="Open 
+menu">Menu</button><div class="links" id="links"> <a href="#news-title" 
+style="color:#D4AF37">NEWS</a> <a href="#contact" 
+style="color:#D4AF37">CONTACT</a> </div> </nav> </div> </header> <script> const 
+nav=document.getElementById('nav'); const menu=document.getElementById('menu'); 
+menu&&menu.addEventListener('click',()=>nav.classList.toggle('open')); const 
+path=location.pathname.replace(/\//,'index.html'); 
+document.querySelectorAll('.links 
+a').forEach(a=>{if(a.getAttribute('href')===path)a.setAttribute('aria-
+current','page');}); </script> <main id="main"> <section class="hero" aria-
+labelledby="hero-title"> <div class="media" aria-hidden="true"> <video 
+src="assets/AEGIS STRAROS.mp4" autoplay muted loop playsinline 
+poster=""></video> <div class="overlay"></div> </div> <div class="container"> 
+<div class="hero-content"> <h1 id="hero-title">PROTECTION THROUGH 
+INNOVATION</h1> <p class="hero-subtitle">Protection Through Innovation</p> <p 
+class="hero-text">Humanitarian-defence-systems engineered through AI, allied 
+expertise, and operational partnership with Ukraine.</p> <p 
+style="color:#D4AF37;font-size:1.1rem;margin-bottom:1.5rem">Developed by 
+Partnership. Built in Britain. Proven on the battlefield. Trusted by allies.</p>
+ </div> </div> </section> <section class="section" aria-labelledby="war-title" 
+style="background:#0A1A2F;color:#fff"> <div class="container"> <h2 id="war-
+title" style="color:#D4AF37;font-size:clamp(1.75rem,4vw,2.5rem);font-
+weight:700;margin-bottom:1rem">BORN FROM THE REALITIES OF WAR. BUILT TO REDEFINE
+ DEFENCE.</h2> <p style="color:#D4AF37;font-size:1.1rem;margin-
+bottom:1.5rem">PROTECTION THROUGH INNOVATION — applied with purpose, built for 
+resilience.</p> <p style="margin-bottom:1rem">Aegis Stratos was founded in 
+response to a truth witnessed in Ukraine — that technology saves lives when it 
+is shaped by those who face real threats and developed by those who know how to 
+deliver at scale. As uncrewed systems began to redefine modern warfare, we 
+recognised the need for a company that could unite Ukrainian operational 
+ingenuity with advanced AI-driven engineering and disciplined programme 
+delivery. </p> <p>This alignment brings together operational credibility, 
+technical precision, and humanitarian intent — defining a new kind of defence 
+company for a new era.</p> </div> </section> <section class="section" aria-
+labelledby="ai-title" style="background:#0A1A2F;color:#fff;border-top:1px solid 
+#D4AF37"> <div class="container"> <h2 id="ai-title" style="color:#D4AF37;font-
+size:clamp(1.75rem,4vw,2.5rem);font-weight:700;margin-bottom:.5rem">AI NATIVE BY
+ DESIGN</h2> <p style="margin-bottom:1rem">Aegis Stratos is an AI-First company.
+ We build through it, with it, and because of it. Artificial intelligence 
+defines how we innovate, manufacture, and operate — from automated design and 
+digital simulation to predictive logistics and adaptive flight control.</p> 
+<p>By embedding AI throughout both our aircraft and our organisation, we 
+accelerate development cycles, enhance security, reduce cost, and react to 
+changing threats at unprecedented speed.</p> </div> </section> <section 
+class="section" id="contact" aria-labelledby="contact-title" 
+style="background:#0A1A2F;color:#fff;border-top:1px solid #D4AF37"> <div 
+class="container"> <div style="display:grid;grid-template-columns:repeat(auto-
+fit,minmax(300px,1fr));gap:40px"> <div> <h2 id="news-title" 
+style="color:#D4AF37;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;margin-
+bottom:.5rem">NEWS & INSIGHTS</h2> <p>Coming soon – updates on AI innovation, 
+operational testing, and allied colaboro.</p> </div> <div> <h2 id="contact-
+title" style="color:#D4AF37;font-size:clamp(1.5rem,3vw,2rem);font-
+weight:700;margin-bottom:1rem">CONTACT AEGIS STRATOS</h2> <p style="margin-
+bottom:1rem">For partnership or investor enquiries.</p> <form id="contact-form" 
+class="form" aria-describedby="contact-help"> <label 
+style="display:block;margin-bottom:.8rem">Name <input name="name" required 
+autocomplete="name" style="width:100%;padding:.6rem;border-radius:8px;border:1px
+ solid #D4AF37;background:#0A1A2F;color:#fff"></label> <label 
+style="display:block;margin-bottom:.8rem">Email <input type="email" name="email"
+ required autocomplete="email" style="width:100%;padding:.6rem;border-
+radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff"></label> 
+<label style="display:block;margin-bottom:.8rem">Message <textarea 
+name="message" required rows="4" style="width:100%;padding:.6rem;border-
+radius:8px;border:1px solid #D4AF37;background:#0A1A2F;color:#fff;font-
+family:inherit;resize:vertical"></textarea></label> <div class="status" 
+id="status" role="status" aria-live="polite"></div> <button class="btn btn-
+primary" type="submit" style="background:#D4AF37;color:#000;padding:.6rem 
+1.2rem;border-radius:8px;border:none;font-weight:600;cursor:pointer">Send 
+message</button> </form> </div> </div> </div> <p style="font-
+size:.85rem;color:#999;margin-top:.5rem">This site is protected by reCAPTCHA and
+ the Google Privacy Policy and Terms of Service apply.</p> </section> </main> 
+<script src="assets/snippets/contact.js"></script><div 
+style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-
+content:space-between"> <div><span id="y"></span> Aegis Stratos. All rights 
+reserved.</div> <div><a href="privacy.html" style="color:#fff;text-
+decoration:underline">Privacy</a></div> </div> </div> </footer> 
+<script>document.getElementById('y').textContent=new 
+Date().getFullYear();</script> </body> </html>

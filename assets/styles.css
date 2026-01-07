@@ -43,7 +43,7 @@ nav.open .links{position:absolute;right:20px;top:60px;background:var(--navy);bor
 .hero video{width:100%;height:100%;object-fit:cover;opacity:.65}
 .hero .overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,31,61,.95) 0%,rgba(10,31,61,.8) 40%,rgba(10,31,61,.3) 70%,transparent 100%)}
 .hero-content{position:relative;z-index:1;max-width:650px;padding:clamp(48px,8vw,96px) 0}
-.hero h1{font-size:clamp(2.25rem,5.5vw,4rem);font-weight:700;margin-bottom:.75rem;letter-spacing:-.02em;line-height:1.1}
+.hero h1{font-size:clamp(2.25rem,5.5vw,4rem);font-weight:700;margin-bottom:.75rem;letter-spacing:-.02em;line-height:1.1;white-space:nowrap}
 .hero-subtitle{font-size:clamp(1.15rem,2.5vw,1.5rem);font-weight:600;margin-bottom:1rem;font-family:'Oswald',sans-serif}
 .hero-text{font-size:clamp(.95rem,1.8vw,1.1rem);margin-bottom:.75rem;line-height:1.6}
 

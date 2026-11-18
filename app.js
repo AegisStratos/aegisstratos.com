@@ -422,13 +422,23 @@
       statusEl.textContent = "Thank you. Your message has been sent and we will reply within two working days.";
       form.reset();
     } catch {
-      // Formspree refuses background sends while its reCAPTCHA is on. Send the form the standard way instead:
-      // the visitor passes Formspree's check on its own page and the message is delivered.
-      statusEl.textContent = "One more step: confirming you are not a robot.";
+      // Formspree refuses background sends while its reCAPTCHA is on. Keep the visitor on this site:
+      // post the form into a panel here, where Formspree shows its "I'm not a robot" check and then delivers the message.
+      statusEl.textContent = "";
+      form.querySelectorAll('input[name="_subject"]').forEach(x => x.remove());
       form.append(h("input", { type: "hidden", name: "_subject", value: fd.get("enquiry") + " via website" }));
+      const verify = $("#verify"), frame = $("#verify-frame");
+      let loads = 0;
+      frame.onload = () => { loads++; if (loads >= 2) { // second page in the panel is Formspree's confirmation: the message has gone
+        setTimeout(() => { verify.close(); form.reset(); statusEl.textContent = "Thank you. Your message has been sent and we will reply within two working days."; }, 1200); } };
+      form.target = "verify-frame";
+      verify.showModal();
       form.submit();
+      form.removeAttribute("target");
     }
   });
+
+  $("#verify-close").addEventListener("click", () => $("#verify").close());
 
   /* ---------- Cookies ---------- */
   const loadAnalytics = () => {

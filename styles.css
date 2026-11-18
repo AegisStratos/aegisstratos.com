@@ -210,6 +210,16 @@ dialog::backdrop { background: var(--navy); }
 dialog video { width: 100%; height: 100%; object-fit: contain; }
 #player-close { position: absolute; z-index: 2; top: 18px; right: 18px; background: rgba(10,26,47,.8); color: #fff; border: 1px solid var(--gold); border-radius: 999px; padding: 10px 18px; font: 700 11px var(--head); letter-spacing: .14em; text-transform: uppercase; }
 
+/* Contact form robot check, kept on this site */
+#verify { width: min(560px, calc(100vw - 24px)); height: min(640px, calc(100dvh - 24px)); border: 1px solid var(--gold); border-radius: 18px; background: var(--navy); color: var(--white); padding: 0; overflow: hidden; margin: auto; }
+#verify[open] { display: flex; flex-direction: column; }
+#verify::backdrop { background: rgba(10,26,47,.88); }
+.verify-head { display: flex; gap: 16px; justify-content: space-between; align-items: flex-start; padding: 22px 22px 16px; }
+.verify-head h3 { font: 700 20px/1.2 var(--head); margin: 8px 0 6px; }
+.verify-head p:not(.kicker) { color: var(--text2); font-size: 15px; }
+#verify-close { background: none; border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; font: 700 11px var(--head); letter-spacing: .14em; text-transform: uppercase; color: var(--white); }
+#verify-frame { flex: 1; width: 100%; border: 0; background: #fff; border-radius: 12px 12px 0 0; }
+
 /* ---------- Cookie banner ---------- */
 #cookies { position: fixed; z-index: 40; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); max-width: 860px; margin: 0 auto; background: #fff; color: #000; border-radius: 16px; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; font-size: 13px; line-height: 1.4; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
 #cookies p { flex: 1 1 300px; }

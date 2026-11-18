@@ -61,7 +61,6 @@ window.SITE = {
     kicker: "Products",
     title: "One platform. <b>One brain.</b>",
     sub: "One flight AI flies them all. Improve it once and every aircraft improves. A person authorises every consequential action.",
-    note: "Concept illustrations, not designs.",
     items: [
       { name: "Metatron", role: "Surveillance aircraft", status: "Prototype flown", line: "A reusable aircraft built to watch over people and places, and to report faithfully what it sees.", img: "assets/products/01-metatron.jpg", detail: "A medium-sized aircraft that takes off, watches and comes home to fly again. It carries the sensors for the task. Intelligence, our flight control AI, is being built to fly it.", facts: [["Purpose", "Watch, search and report"], ["Reusable", "Yes"]], film: null },
       { name: "Mjolnir", role: "Reusable interceptor", status: "In development", line: "Designed to stop slower attack drones, and to fly home when it is not used.", img: "assets/products/02-mjolnir.jpg", detail: "An interceptor built on the Metatron platform for slower, propeller-driven attack drones. If it is launched and not needed, it returns to be used again.", facts: [["Purpose", "Stop slower attack drones"], ["Reusable", "Yes"]], film: null },

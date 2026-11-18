@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>Film test | Aegis Stratos</title>
+<style>body{background:#0A1A2F;color:#fff;font:16px/1.5 Arial,sans-serif;margin:0;padding:20px}h1{font-size:22px}h2{font-size:16px;color:#D4AF37;margin:28px 0 8px}video{width:100%;max-width:420px;background:#000;display:block}a{color:#D4AF37}pre{background:#000;color:#0f0;padding:10px;font-size:12px;white-space:pre-wrap;border-radius:8px}</style></head>
+<body>
+<h1>Film test page</h1>
+<p>Tap play on each film below. Then take a screenshot of the green box at the bottom.</p>
+<h2>A. Standard film (H.264), plain player</h2>
+<video id="a" controls playsinline preload="metadata" src="assets/films/customers-portrait.mp4"></video>
+<p><a href="assets/films/customers-portrait.mp4">Open film A directly</a></p>
+<h2>B. Apple-encoded film (HEVC), plain player</h2>
+<video id="b" controls playsinline preload="metadata" src="assets/test/customers-portrait-hevc.mp4"></video>
+<p><a href="assets/test/customers-portrait-hevc.mp4">Open film B directly</a></p>
+<h2>C. Standard landscape film</h2>
+<video id="c" controls playsinline preload="metadata" src="assets/films/customers.mp4"></video>
+<h2>What the phone reports</h2>
+<pre id="log"></pre>
+<script>
+var log = document.getElementById("log");
+function say(m) { log.textContent += m + "\n"; }
+say(navigator.userAgent);
+say("H.264 support: " + document.createElement("video").canPlayType('video/mp4; codecs="avc1.640028, mp4a.40.2"') + " | HEVC support: " + document.createElement("video").canPlayType('video/mp4; codecs="hvc1"'));
+["a", "b", "c"].forEach(function (id) {
+  var v = document.getElementById(id);
+  ["loadstart", "loadedmetadata", "canplay", "playing", "pause", "stalled", "suspend", "waiting", "ended"].forEach(function (ev) {
+    v.addEventListener(ev, function () { say(id.toUpperCase() + " " + ev + " ready=" + v.readyState + " net=" + v.networkState + " t=" + v.currentTime.toFixed(1) + " " + v.videoWidth + "x" + v.videoHeight); });
+  });
+  v.addEventListener("error", function () { say(id.toUpperCase() + " ERROR code=" + (v.error && v.error.code) + " " + (v.error && v.error.message)); });
+});
+window.addEventListener("error", function (e) { say("script error: " + e.message); });
+</script>
+</body></html>

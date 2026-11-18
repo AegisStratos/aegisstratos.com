@@ -115,6 +115,7 @@ main, footer { position: relative; z-index: 1; }
 .inline-films #stage, .inline-films #controls, .inline-films #caption { display: none !important; }
 .film-chapter .screen.inline { height: auto; cursor: auto; background: var(--navy); padding: 76px 0 0; }
 .film-chapter .screen.inline video { display: block; width: 100%; max-height: calc(100vh - 76px); max-height: calc(100svh - 76px); object-fit: contain; background: var(--navy); margin: 0 auto; }
+.film-help { padding: 12px var(--gutter); color: var(--text2); font-size: 14px; }
 /* Films gallery */
 .gallery-film { display: block; width: 100%; max-height: 86vh; object-fit: contain; background: var(--navy); border: 1px solid var(--line); border-radius: 16px; }
 #films { background: var(--navy); padding: 16vh var(--gutter); border-top: 1px solid var(--line); }

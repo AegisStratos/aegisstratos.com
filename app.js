@@ -61,6 +61,13 @@
       v.muted = true;
       if (c.film.captions) v.append(h("track", { kind: "captions", srclang: "en", label: "English", src: c.film.captions }));
       screen.append(v); sec.inline = v; inlineVideos.push(v);
+      // If a phone cannot play the film in the page, say so and offer the film on its own
+      const help = h("p", { class: "film-help", hidden: "" }, `<span></span> <a href="${f.src}">Open the film on its own</a>`);
+      screen.append(help);
+      const tell = msg => { help.hidden = false; help.firstElementChild.textContent = msg; };
+      v.addEventListener("error", () => tell("This film could not be played here (code " + (v.error ? v.error.code : "?") + ")."));
+      v.addEventListener("stalled", () => { if (v.readyState < 2 && !v.paused) tell("The film is slow to load."); });
+      v.addEventListener("playing", () => { help.hidden = true; });
     }
     sections.push(sec);
   };
@@ -93,7 +100,7 @@
           </div>
         </article>`).join("")}
       </div>
-      <p class="note">${P.note}</p>`);
+      `);
     root.append(el);
     sections.push({ id: P.id, el });
   }

@@ -83,7 +83,7 @@
     addNav(C.id, C.nav);
     const el = h("section", { id: C.id }, `
       <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${C.kicker}</p><h2>${C.title}</h2><p class="lede">${C.sub}</p></div>
-      <form id="contact-form" class="reveal" novalidate>
+      <form id="contact-form" class="reveal" novalidate method="POST" action="${S.contactEndpoint}">
         <label>Enquiry <select name="enquiry">${C.enquiries.map(e => `<option>${e}</option>`).join("")}</select></label>
         <label>Name <input name="name" required autocomplete="name"></label>
         <label>Email <input type="email" name="email" required autocomplete="email"></label>
@@ -285,7 +285,13 @@
       if (!res.ok) throw new Error("send failed");
       statusEl.textContent = "Thank you. Your message has been sent and we will reply within two working days.";
       form.reset();
-    } catch { statusEl.textContent = "Sorry, something went wrong. Please try again."; }
+    } catch {
+      // Formspree refuses background sends while its reCAPTCHA is on. Send the form the standard way instead:
+      // the visitor passes Formspree's check on its own page and the message is delivered.
+      statusEl.textContent = "One more step: confirming you are not a robot.";
+      form.append(h("input", { type: "hidden", name: "_subject", value: fd.get("enquiry") + " via website" }));
+      form.submit();
+    }
   });
 
   /* ---------- Cookies ---------- */

@@ -7,7 +7,9 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // Phones held upright get the portrait cut of a film when one exists
   const portraitMQ = matchMedia("(orientation: portrait) and (max-width: 820px)");
-  const pick = f => (portraitMQ.matches && f.portrait) ? { src: f.portrait, poster: f.posterPortrait || f.poster, portrait: true } : { src: f.src, poster: f.poster, portrait: false };
+  const pick = f => (portraitMQ.matches && f.portrait) ? { src: f.portrait, alt: f.portraitHevc, poster: f.posterPortrait || f.poster, portrait: true } : { src: f.src, poster: f.poster, portrait: false };
+  // Native players list the standard file first and, where one exists, an Apple-encoded HEVC copy as a second choice
+  const sources = k => `<source src="${k.src}" type="video/mp4">` + (k.alt ? `<source src="${k.alt}" type='video/mp4; codecs="hvc1"'>` : "");
   // Phones, tablets and every iPhone or iPad get a plain native video player inside each chapter.
   // It is the most dependable way to play film on those devices. Wide desktop screens use the full-screen stage.
   const ua = navigator.userAgent;
@@ -57,8 +59,9 @@
     if (inlineMode) {
       const f = pick(c.film);
       screen.classList.add("inline");
-      const v = h("video", { playsinline: "", "webkit-playsinline": "", muted: "", controls: "", preload: "metadata", poster: f.poster || "", src: f.src, style: `aspect-ratio:${f.portrait ? "9/16" : "16/9"}`, "aria-label": c.filmTitle || c.nav });
+      const v = h("video", { playsinline: "", "webkit-playsinline": "", muted: "", controls: "", preload: "metadata", poster: f.poster || "", style: `aspect-ratio:${f.portrait ? "9/16" : "16/9"}`, "aria-label": c.filmTitle || c.nav });
       v.muted = true;
+      v.innerHTML = sources(f);
       if (c.film.captions) v.append(h("track", { kind: "captions", srclang: "en", label: "English", src: c.film.captions }));
       screen.append(v); sec.inline = v; inlineVideos.push(v);
       // If a phone cannot play the film in the page, say so and offer the film on its own
@@ -66,6 +69,7 @@
       screen.append(help);
       const tell = msg => { help.hidden = false; help.firstElementChild.textContent = msg; };
       v.addEventListener("error", () => tell("This film could not be played here (code " + (v.error ? v.error.code : "?") + ")."));
+      const last = v.querySelector("source:last-of-type"); if (last) last.addEventListener("error", () => tell("This phone could not play the film in either format."));
       v.addEventListener("stalled", () => { if (v.readyState < 2 && !v.paused) tell("The film is slow to load."); });
       v.addEventListener("playing", () => { help.hidden = true; });
     }
@@ -92,7 +96,7 @@
         <div class="arrows"><button class="arrow" data-dir="-1" aria-label="Previous products">&larr;</button><button class="arrow" data-dir="1" aria-label="More products">&rarr;</button></div></div>
       <div class="track" tabindex="0" aria-label="Products">${P.items.map((it, i) => `
         <article class="card">
-          <div class="img"><img src="${it.img}" alt="${it.name} concept illustration" loading="lazy"></div>
+          <div class="img"><img src="${it.img}" alt="${it.name}" loading="lazy"></div>
           ${it.film ? `<button class="play" data-film="${i}" aria-label="Play the ${it.name} film"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 4l14 8-14 8z" fill="currentColor"/></svg></button>` : ""}
           <div class="txt"><p class="kicker">${it.role}</p>${it.status ? `<span class="status">${it.status}</span>` : ""}<h3>${it.name}</h3><p>${it.line}</p>
             ${it.detail ? `<button class="more" aria-expanded="false" aria-controls="detail-${i}" aria-label="${it.name} details"><span>Details</span><i aria-hidden="true">+</i></button>
@@ -127,7 +131,7 @@
         <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${G.kicker}</p><h2>${G.title}</h2><p class="lede">${G.sub}</p></div>
         <div class="film-grid">${inlineMode ? films.map(f => { const k = pick(f.film); return `
           <div class="film-card reveal">
-            <video class="gallery-film" playsinline webkit-playsinline controls preload="none" poster="${k.poster || ""}" src="${k.src}" style="aspect-ratio:${k.portrait ? "9/16" : "16/9"}" aria-label="${meta(f.id).filmTitle || meta(f.id).nav}">${f.film.captions ? `<track kind="captions" srclang="en" label="English" src="${f.film.captions}">` : ""}</video>
+            <video class="gallery-film" playsinline webkit-playsinline controls preload="none" poster="${k.poster || ""}" style="aspect-ratio:${k.portrait ? "9/16" : "16/9"}" aria-label="${meta(f.id).filmTitle || meta(f.id).nav}">${sources(k)}${f.film.captions ? `<track kind="captions" srclang="en" label="English" src="${f.film.captions}">` : ""}</video>
             <span class="kicker">${meta(f.id).length || "Film"}</span><strong>${meta(f.id).filmTitle || meta(f.id).nav}</strong>
           </div>`; }).join("") : films.map((f, i) => `
           <button class="film-card reveal" data-watch="${i}" aria-label="Watch ${meta(f.id).filmTitle || meta(f.id).nav}">

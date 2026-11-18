@@ -126,7 +126,11 @@
       const meta = id => S.chapters.find(c => c.id === id) || S.founders;
       const el = h("section", { id: G.id }, `
         <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${G.kicker}</p><h2>${G.title}</h2><p class="lede">${G.sub}</p></div>
-        <div class="film-grid">${films.map((f, i) => `
+        <div class="film-grid">${inlineMode ? films.map(f => { const k = pick(f.film); return `
+          <div class="film-card reveal">
+            <video class="gallery-film" playsinline webkit-playsinline controls preload="none" poster="${k.poster || ""}" src="${k.src}" style="aspect-ratio:${k.portrait ? "9/16" : "16/9"}" aria-label="${meta(f.id).filmTitle || meta(f.id).nav}">${f.film.captions ? `<track kind="captions" srclang="en" label="English" src="${f.film.captions}">` : ""}</video>
+            <span class="kicker">${meta(f.id).length || "Film"}</span><strong>${meta(f.id).filmTitle || meta(f.id).nav}</strong>
+          </div>`; }).join("") : films.map((f, i) => `
           <button class="film-card reveal" data-watch="${i}" aria-label="Watch ${meta(f.id).filmTitle || meta(f.id).nav}">
             <span class="thumb"><img src="${f.film.poster}" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 4l14 8-14 8z" fill="currentColor"/></svg></span></span>
             <span class="kicker">${meta(f.id).length || "Film"}</span><strong>${meta(f.id).filmTitle || meta(f.id).nav}</strong>
@@ -278,6 +282,9 @@
       ["loadedmetadata", "canplay", "stalled", "waiting"].forEach(ev => v.addEventListener(ev, () => dbg("inline " + ev + " ready=" + v.readyState)));
     });
     addEventListener("error", e => dbg("script error: " + e.message));
+    // Only one film plays at a time, wherever it is on the page
+    document.addEventListener("play", e => { document.querySelectorAll("video").forEach(o => { if (o !== e.target && !o.paused) { o.dataset.auto = "1"; o.pause(); } }); }, true);
+    document.querySelectorAll(".gallery-film").forEach(v => v.addEventListener("error", () => dbg("gallery video error code " + (v.error && v.error.code))));
     document.addEventListener("visibilitychange", () => { if (document.hidden) inlineVideos.forEach(v => { if (!v.paused) { v.dataset.auto = "1"; v.pause(); } }); });
   }
 

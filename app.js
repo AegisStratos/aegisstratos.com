@@ -59,10 +59,9 @@
     if (inlineMode) {
       const f = pick(c.film);
       screen.classList.add("inline");
-      const v = h("video", { playsinline: "", "webkit-playsinline": "", muted: "", controls: "", preload: "metadata", poster: f.poster || "", style: `aspect-ratio:${f.portrait ? "9/16" : "16/9"}`, "aria-label": c.filmTitle || c.nav });
-      v.muted = true;
-      v.innerHTML = sources(f);
-      if (c.film.captions) v.append(h("track", { kind: "captions", srclang: "en", label: "English", src: c.film.captions }));
+      // Deliberately the plainest possible player: this exact form is proven to play on a real iPhone (film-test.html, 18 Nov 2026).
+      // A poster, a captions track and script-started muted playback were all present when iPhones refused to play; do not add them back without testing on a real iPhone.
+      const v = h("video", { playsinline: "", controls: "", preload: "metadata", src: f.src, style: `aspect-ratio:${f.portrait ? "9/16" : "16/9"}` });
       screen.append(v); sec.inline = v; inlineVideos.push(v);
       // If a phone cannot play the film in the page, say so and offer the film on its own
       const help = h("p", { class: "film-help", hidden: "" }, `<span></span> <a href="${f.src}">Open the film on its own</a>`);
@@ -131,7 +130,7 @@
         <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${G.kicker}</p><h2>${G.title}</h2><p class="lede">${G.sub}</p></div>
         <div class="film-grid">${inlineMode ? films.map(f => { const k = pick(f.film); return `
           <div class="film-card reveal">
-            <video class="gallery-film" playsinline webkit-playsinline controls preload="none" poster="${k.poster || ""}" style="aspect-ratio:${k.portrait ? "9/16" : "16/9"}" aria-label="${meta(f.id).filmTitle || meta(f.id).nav}">${sources(k)}${f.film.captions ? `<track kind="captions" srclang="en" label="English" src="${f.film.captions}">` : ""}</video>
+            <video class="gallery-film" playsinline controls preload="metadata" src="${k.src}" style="aspect-ratio:${k.portrait ? "9/16" : "16/9"}"></video>
             <span class="kicker">${meta(f.id).length || "Film"}</span><strong>${meta(f.id).filmTitle || meta(f.id).nav}</strong>
           </div>`; }).join("") : films.map((f, i) => `
           <button class="film-card reveal" data-watch="${i}" aria-label="Watch ${meta(f.id).filmTitle || meta(f.id).nav}">
@@ -273,11 +272,10 @@
     const playing = new Set();
     const io2 = new IntersectionObserver(es => es.forEach(e => {
       const v = e.target;
-      if (e.isIntersecting && e.intersectionRatio >= 0.55) {
-        inlineVideos.forEach(o => { if (o !== v) o.pause(); });
-        if (!v.dataset.userPaused && !(reduced && !entered)) { const p = v.play(); if (p) p.then(() => dbg("inline playing " + (v.muted ? "muted" : "with sound"))).catch(err => dbg("inline play refused: " + err.name)); }
-      } else if (!v.paused) { v.dataset.auto = "1"; v.pause(); }
-    }), { threshold: [0, 0.55, 1] });
+      // Pause a film only once it has been properly on screen and has then scrolled away
+      if (e.isIntersecting && e.intersectionRatio >= 0.55) v.dataset.seen = "1";
+      else if (v.dataset.seen && e.intersectionRatio < 0.3) { delete v.dataset.seen; if (!v.paused) { v.dataset.auto = "1"; v.pause(); } }
+    }), { threshold: [0, 0.3, 0.55, 1] });
     inlineVideos.forEach(v => {
       io2.observe(v);
       v.addEventListener("pause", () => { if (v.dataset.auto) delete v.dataset.auto; else if (!v.ended) v.dataset.userPaused = "1"; });
@@ -299,8 +297,7 @@
       entered = true; dbg("enter " + (withSound ? "with sound" : "muted") + " (native player)");
       const v = inlineVideos[0];
       if (!v) { sections[0].el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); return; }
-      v.muted = !withSound; v.toggleAttribute("muted", !withSound);
-      try { v.currentTime = 0; } catch {}
+      v.muted = !withSound;
       const p = v.play(); if (p) p.catch(err => dbg("enter play refused: " + err.name));
       v.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
       return;

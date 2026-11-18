@@ -14,7 +14,7 @@
   const SITE = {
     contactEndpoint: "https://formspree.io/f/mwpakdbb",
     // Web traffic analytics: Cloudflare Web Analytics (free, no cookies). Paste the site token to switch it on.
-    analytics: { cloudflareToken: "", requireConsent: true },
+    analytics: { cloudflareToken: "fe1cc00dce7142e6b8e144824b276fa8", requireConsent: true },
     // AI imagery ("blue hour"). Each background fades in when its file exists; a list plays as a slow slideshow.
     images: {
       hero: ["assets/scenes/airport.jpg", "assets/scenes/stadium.jpg", "assets/scenes/london.jpg"],

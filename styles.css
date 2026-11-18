@@ -136,8 +136,8 @@ h1.h { font-size: clamp(40px, 7.4vw, 124px); }
 .ring.in .stations, .ring.in text { opacity: 1; }
 .ring .orbit { transform-origin: 200px 200px; opacity: 0; }
 .ring .orbit circle { fill: var(--white); }
-.ring.in .orbit { opacity: 1; animation: orbit 3.2s cubic-bezier(.5, 0, .2, 1) 1.5s infinite; }
-@keyframes orbit { from { transform: rotate(0); animation-timing-function: ease-in; } 34% { transform: rotate(360deg); } 62% { transform: rotate(720deg); } 84% { transform: rotate(1080deg); } to { transform: rotate(1440deg); } }
+.ring.in .orbit { opacity: 1; transition: opacity .6s ease 1.5s; animation: orbit 3.6s linear 1.5s infinite; will-change: transform; }
+@keyframes orbit { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 
 /* Product verbs and the three-part definition */
 .verb { font: 300 clamp(34px, 6vw, 100px)/1 var(--head); letter-spacing: -.02em; }

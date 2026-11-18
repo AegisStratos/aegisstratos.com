@@ -24,20 +24,23 @@
     rail.append(h("i", { "data-id": id }));
   };
 
+  // A film chapter is three parts, so nothing ever sits on top of a film:
+  // a title screen on solid navy, a clear screen where the film plays alone, and a closing panel with the call to action.
+  // The first film has no title screen: the hero is its title, and the hero film grows straight into it.
   const filmChapter = (c) => {
     n++;
+    const first = sections.length === 0;
     const el = h("section", { id: c.id, class: "film-chapter" }, `
-      <div class="pin">
-        <div class="film-copy show">
+      ${first ? "" : `<div class="intro"><div class="film-copy reveal">
           <div class="num">${pad(n)}</div>
           <p class="kicker">${c.kicker}</p>
           <h2>${c.title}</h2>
           ${c.sub ? `<p class="lede">${c.sub}</p>` : ""}
-        </div>
-        ${c.cta ? `<div class="film-cta"><p class="kicker">${c.kicker}</p><a class="btn gold" href="#contact" data-enquiry="${c.cta.enquiry}">${c.cta.label}</a></div>` : ""}
-      </div>`);
+        </div></div>`}
+      <div class="screen"></div>
+      ${c.cta ? `<div class="outro"><div class="reveal"><p class="kicker">${c.kicker}</p><h3>${c.cta.line || c.sub || ""}</h3><a class="btn gold" href="#contact" data-enquiry="${c.cta.enquiry}">${c.cta.label}</a></div></div>` : ""}`);
     root.append(el);
-    sections.push({ id: c.id, el, film: c.film, time: 0 });
+    sections.push({ id: c.id, el, screen: $(".screen", el), film: c.film, time: 0 });
   };
 
   const textChapter = (c, paras, cls = "") => {
@@ -56,8 +59,9 @@
     const P = S.products; n++;
     addNav(P.id, P.nav);
     const el = h("section", { id: P.id }, `
-      <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${P.kicker}</p><h2>${P.title}</h2><p class="lede">${P.sub}</p></div>
-      <div class="track">${P.items.map((it, i) => `
+      <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${P.kicker}</p><h2>${P.title}</h2><p class="lede">${P.sub}</p>
+        <div class="arrows"><button class="arrow" data-dir="-1" aria-label="Previous products">&larr;</button><button class="arrow" data-dir="1" aria-label="More products">&rarr;</button></div></div>
+      <div class="track" tabindex="0" aria-label="Products">${P.items.map((it, i) => `
         <${it.film ? "button" : "article"} class="card" ${it.film ? `data-film="${i}" aria-label="Play the ${it.name} film"` : ""}>
           <div class="img"><img src="${it.img}" alt="${it.name} concept illustration" loading="lazy"></div>
           ${it.film ? `<span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 4l14 8-14 8z" fill="currentColor"/></svg></span>` : ""}
@@ -75,6 +79,25 @@
     addNav(F.id, F.nav);
     if (F.film) { filmChapter({ ...F, id: F.id, sub: "" }); n--; textChapter({ ...F, id: F.id + "-text" }, F.paragraphs, "story"); }
     else textChapter(F, F.paragraphs, "story");
+  }
+
+  // Films: each film on its own, in a plain player with full controls
+  {
+    const G = S.filmsSection, films = sections.filter(x => x.film);
+    if (G && films.length) {
+      n++; addNav(G.id, G.nav);
+      const meta = id => S.chapters.find(c => c.id === id) || S.founders;
+      const el = h("section", { id: G.id }, `
+        <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${G.kicker}</p><h2>${G.title}</h2><p class="lede">${G.sub}</p></div>
+        <div class="film-grid">${films.map((f, i) => `
+          <button class="film-card reveal" data-watch="${i}" aria-label="Watch ${meta(f.id).filmTitle || meta(f.id).nav}">
+            <span class="thumb"><img src="${f.film.poster}" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 4l14 8-14 8z" fill="currentColor"/></svg></span></span>
+            <span class="kicker">${meta(f.id).length || "Film"}</span><strong>${meta(f.id).filmTitle || meta(f.id).nav}</strong>
+          </button>`).join("")}</div>`);
+      root.append(el);
+      sections.push({ id: G.id, el });
+      el.addEventListener("click", e => { const b = e.target.closest("[data-watch]"); if (b) openPlayer(films[b.dataset.watch].film); });
+    }
   }
 
   // Contact
@@ -99,7 +122,7 @@
   /* ---------- Film stage ---------- */
   const stage = $("#stage"), video = $("#film"), dim = $("#stage-dim"), controls = $("#controls");
   const soundBtn = $("#sound-btn"), soundLabel = $("#sound-label"), playBtn = $("#play-btn"), bar = $("#film-progress i");
-  let soundOn = false, current = null, userPaused = false, heroMode = false, heroLeft = false;
+  let ccOn = false, soundOn = false, current = null, userPaused = false, heroMode = false, heroLeft = false;
   // Phones held upright get the portrait cut of a film when one exists
   const portraitMQ = matchMedia("(orientation: portrait) and (max-width: 820px)");
   const pick = f => (portraitMQ.matches && f.portrait) ? { src: f.portrait, poster: f.posterPortrait || f.poster, portrait: true } : { src: f.src, poster: f.poster, portrait: false };
@@ -114,8 +137,12 @@
   const captionEl = $("#caption");
   const showCaption = () => {
     const t = video.textTracks[0], cue = t && t.activeCues && t.activeCues[0];
-    captionEl.textContent = (!soundOn && current && cue && !heroMode) ? cue.text : "";
+    captionEl.textContent = (ccOn && current && cue && !heroMode) ? cue.text : "";
   };
+
+  const pauseBtn = $("#pause-btn");
+  const setControls = () => { const on = !!current && !heroMode; controls.classList.toggle("on", on); controls.toggleAttribute("inert", !on); };
+  const setEnded = v => { controls.classList.toggle("ended", v); current?.el.classList.toggle("ended", v); playBtn.setAttribute("aria-label", v ? "Replay film" : "Play film"); };
 
   const play = () => {
     if (reduced && !current?.started) { controls.classList.add("paused"); return; } // reduced motion: wait for a tap
@@ -149,24 +176,33 @@
   const activate = sec => {
     if (current === sec) return;
     if (current) { current.time = video.currentTime; video.pause(); }
+    document.querySelectorAll(".film-chapter.ended").forEach(e => e.classList.remove("ended")); controls.classList.remove("ended");
     current = sec; userPaused = false;
-    if (!sec) { stage.classList.remove("on"); controls.classList.remove("on"); showCaption(); return; }
+    if (!sec) { stage.classList.remove("on"); setControls(); showCaption(); return; }
     load(sec); play();
-    stage.classList.add("on"); controls.hidden = false; controls.classList.toggle("on", !heroMode);
+    stage.classList.add("on"); controls.hidden = false; setControls();
   };
   portraitMQ.addEventListener("change", () => { if (current) { const s = current; s.time = video.currentTime; current = null; activate(s); } });
   video.addEventListener("playing", () => document.body.classList.add("film-live"));
 
   video.addEventListener("timeupdate", () => { if (video.duration) bar.style.width = (video.currentTime / video.duration * 100) + "%"; });
-  video.addEventListener("play", () => controls.classList.remove("paused"));
-  video.addEventListener("pause", () => { if (current) controls.classList.add("paused"); });
-  video.addEventListener("ended", () => { if (current) current.time = 0; });
+  video.addEventListener("play", () => { controls.classList.remove("paused"); setEnded(false); pauseBtn.textContent = "Pause"; });
+  video.addEventListener("pause", () => { if (current) controls.classList.add("paused"); pauseBtn.textContent = "Play"; });
+  video.addEventListener("ended", () => { // film over: move on to its closing panel, or the next section
+    if (!current) return;
+    current.time = 0; setEnded(true);
+    const next = $(".outro", current.el) || current.el.nextElementSibling;
+    if (next && !userPaused) next.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  });
+  const ccBtn = $("#cc-btn");
+  ccBtn.addEventListener("click", () => { ccOn = !ccOn; ccBtn.setAttribute("aria-pressed", ccOn); showCaption(); });
+  pauseBtn.addEventListener("click", () => { if (video.paused) { userPaused = false; if (current) current.started = true; video.play(); } else { userPaused = true; video.pause(); } });
   playBtn.addEventListener("click", () => { userPaused = false; if (current) current.started = true; video.play(); });
   soundBtn.addEventListener("click", () => { setSound(!soundOn); store.set("aegis-sound", soundOn ? "1" : "0"); if (video.paused && current && !userPaused) play(); });
   // Tap the film area to pause or resume
   root.addEventListener("click", e => {
     if (!current || e.target.closest("a,button,input,textarea,select")) return;
-    if (!e.target.closest(".film-chapter")) return;
+    if (!e.target.closest(".screen")) return;
     if (video.paused) { userPaused = false; video.play(); } else { userPaused = true; video.pause(); }
   });
   document.addEventListener("visibilitychange", () => { if (document.hidden) video.pause(); else if (current && !userPaused) play(); });
@@ -183,7 +219,7 @@
       video.muted = !withSound;
       const p = video.play(); if (p) p.catch(() => {});
     }
-    (firstFilm || sections[0]).el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    (firstFilm ? firstFilm.screen : sections[0].el).scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   };
   $("#enter-sound").addEventListener("click", () => enter(true));
   $("#enter-muted").addEventListener("click", () => enter(false));
@@ -200,39 +236,31 @@
     let active = null, activeId = null;
     // Hero: the first film plays silently behind the opening headline
     const heroR = $("#hero").getBoundingClientRect();
-    const heroNow = innerWidth > 820 && !reduced && !!firstFilm && sections[0] === firstFilm && heroR.bottom > vh * 0.55;
+    const heroNow = innerWidth > 820 && innerHeight >= 600 && !reduced && !!firstFilm && sections[0] === firstFilm && heroR.bottom > vh * 0.55;
     if (heroNow !== heroMode) {
       heroMode = heroNow; showCaption();
-      if (!heroMode && !heroLeft) { heroLeft = true; if (!soundOn) { try { video.currentTime = 0; } catch {} } } // first arrival at chapter one: start from the top
-      controls.classList.toggle("on", !!current && !heroMode);
+      setControls();
     }
     // On wide screens the film sits in a window beside the headline and grows to full screen as you scroll
     const hp = heroMode ? clamp(-heroR.top / (heroR.height * 0.45)) : 1, e = hp * hp * (3 - 2 * hp);
     $("#hero").style.setProperty("--hp", heroMode || heroR.bottom > 0 ? hp : 0);
     video.style.setProperty("--fs", 0.44 + 0.56 * e);
+    video.style.setProperty("--fk", 1 - e);
     video.style.setProperty("--fx", (1 - e) * 25 + "vw");
     video.style.setProperty("--fy", (1 - e) * 3 + "vh");
-    if (heroMode) { active = firstFilm; dim.style.opacity = 0; }
+    if (heroMode) active = firstFilm;
 
     for (const s of sections) {
       const r = s.el.getBoundingClientRect();
       if (r.top <= mid && r.bottom > mid) activeId = s.id.replace("-text", "");
       if (!s.film) continue;
-      const p = clamp(-r.top / (r.height - vh));
-      const inside = r.top < vh * 0.45 && r.bottom > vh * 0.55;
-      if (inside) active = s;
-      // Title holds, then clears so the film can be watched; the call to action arrives near the end
-      const wide = innerWidth > 820 || stage.classList.contains("portrait");
-      const copy = wide ? 1 - clamp((p - 0.1) / 0.18) : 1 - clamp((p - 0.55) / 0.2);
-      const cta = clamp((p - 0.78) / 0.12);
-      s.el.style.setProperty("--copy", copy);
-      s.el.style.setProperty("--cta", cta);
-      $(".film-copy", s.el).classList.toggle("show", copy > 0.5);
-      $(".film-cta", s.el)?.classList.toggle("show", cta > 0.5);
-      if (inside && !heroMode) { dim.style.opacity = wide ? copy * 0.9 : 0; captionEl.style.opacity = wide ? 1 - copy : 1; } // captions wait until the title has cleared
+      const sr = s.screen.getBoundingClientRect(); // the film plays while its clear screen is in view
+      if (sr.top < vh * 0.6 && sr.bottom > vh * 0.4) active = s;
     }
+    dim.style.opacity = 0;
     activate(active);
-    controls.classList.toggle("on", !!current && !heroMode);
+    rail.style.opacity = active && !heroMode ? 0 : 1; // nothing over a playing film
+    setControls();
 
     for (const l of lits) {
       const r = l.el.getBoundingClientRect();
@@ -261,13 +289,25 @@
     if (a) $("#contact-form select").value = a.dataset.enquiry;
   });
 
+  root.addEventListener("click", e => {
+    const a = e.target.closest(".arrow"); if (!a) return;
+    const track = $("#products .track"), card = $(".card", track);
+    track.scrollBy({ left: +a.dataset.dir * (card.offsetWidth + 18) * (innerWidth > 820 ? 2 : 1), behavior: reduced ? "auto" : "smooth" });
+  });
+
   /* ---------- Product films (switched on per product in site.config.js) ---------- */
   const dlg = $("#player"), pv = $("#player-video");
   root.addEventListener("click", e => {
     const card = e.target.closest("[data-film]"); if (!card) return;
-    const f = S.products.items[card.dataset.film].film;
-    pv.src = f.src; pv.poster = f.poster || ""; dlg.showModal(); pv.play();
+    openPlayer(S.products.items[card.dataset.film].film);
   });
+  function openPlayer(f) {
+    const pk = pick(f);
+    pv.querySelectorAll("track").forEach(t => t.remove());
+    pv.src = pk.src; pv.poster = pk.poster || "";
+    if (f.captions) pv.append(h("track", { kind: "captions", srclang: "en", label: "English", src: f.captions }));
+    dlg.showModal(); pv.play().catch(() => {});
+  }
   const closePlayer = () => { pv.pause(); pv.removeAttribute("src"); pv.load(); dlg.close(); };
   $("#player-close").addEventListener("click", closePlayer);
   dlg.addEventListener("cancel", e => { e.preventDefault(); closePlayer(); });

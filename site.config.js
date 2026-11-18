@@ -17,27 +17,29 @@ window.SITE = {
     kicker: "Counter-drone defence · Physical AI",
     title: "Protection through <b>innovation.</b>",
     sub: "We build Physical AI to protect people and critical infrastructure from the drone threat, at a price defenders can sustain.",
-    art: "assets/products/01-metatron.png"
+    art: "assets/products/01-metatron.jpg"
   },
 
   chapters: [
     {
       id: "physical-ai",
       nav: "Physical AI",
+      filmTitle: "Physical AI and the product company", length: "2 min 43",
       kicker: "Physical AI · A product company",
       title: "Not a line. <em>A loop.</em>",
       sub: "Why defence needs a product company, and what Physical AI makes possible.",
       film: { src: "assets/films/physical-ai.mp4", portrait: "assets/films/physical-ai-portrait.mp4", captions: "assets/films/physical-ai.vtt", poster: "assets/posters/physical-ai.jpg", posterPortrait: "assets/posters/physical-ai-portrait.jpg" }, // investor film v2.1
-      cta: { label: "Investor enquiries", enquiry: "Investor enquiry" }
+      cta: { label: "Investor enquiries", enquiry: "Investor enquiry", line: "Defence can move at the speed of the threat." }
     },
     {
       id: "customers",
       nav: "For defenders",
+      filmTitle: "For defenders", length: "1 min 38",
       kicker: "For defenders",
       title: "Defenders are not losing on skill. <em>They are losing on cost.</em>",
       sub: "Interceptors priced against the threat, not against a missile. Aircraft that come home and fly again.",
       film: { src: "assets/films/customers.mp4", portrait: "assets/films/customers-portrait.mp4", captions: "assets/films/customers.vtt", poster: "assets/posters/customers.jpg", posterPortrait: "assets/posters/customers-portrait.jpg" },
-      cta: { label: "Request a briefing", enquiry: "Customer briefing" }
+      cta: { label: "Request a briefing", enquiry: "Customer briefing", line: "Protection you can afford to keep using." }
     }
     ,{
       // AGENTIC CODE FACTORY FILM: switched off until the film exists. Set `film` to switch the whole chapter on.
@@ -61,13 +63,13 @@ window.SITE = {
     sub: "Aircraft, interceptors and one flight AI, with our own controller and motor in development. A person authorises every consequential action.",
     note: "Concept illustrations, not designs.",
     items: [
-      { name: "Metatron", role: "Surveillance aircraft", status: "Prototype flown", line: "A reusable aircraft built to watch over people and places, and to report faithfully what it sees.", img: "assets/products/01-metatron.png", film: null },
-      { name: "Mjolnir", role: "Reusable interceptor", status: "In design", line: "Designed to stop slower attack drones, and to fly home when it is not used.", img: "assets/products/02-mjolnir.png", film: null },
-      { name: "Keraunos", role: "Interceptor", status: "In design", line: "Designed to stop jet-powered drones, at a price defenders can sustain.", img: "assets/products/03-keraunos.png", film: null },
-      { name: "Keraunos NATO", role: "Hardened interceptor", status: "Planned", line: "A shielded, hardened class, planned for higher-value threats.", img: "assets/products/04-keraunos-nato.png", film: null },
-      { name: "Intelligence", role: "Flight control AI", status: "In development", line: "The flight AI built to fly every Aegis Stratos aircraft. Our own flight controller is in design.", img: "assets/products/05-flight-controller.png", film: null },
-      { name: "Aegis motor", role: "Rocket motor", status: "Planned", line: "A small rocket motor of our own, planned for Keraunos.", img: "assets/products/06-aegis-motor.png", film: null },
-      { name: "Humanoid research", role: "Research", status: "Research", line: "The same flight AI could go further in time: robots for hazardous work.", img: "assets/products/07-humanoid-prototype.png", film: null }
+      { name: "Metatron", role: "Surveillance aircraft", status: "Prototype flown", line: "A reusable aircraft built to watch over people and places, and to report faithfully what it sees.", img: "assets/products/01-metatron.jpg", film: null },
+      { name: "Mjolnir", role: "Reusable interceptor", status: "In design", line: "Designed to stop slower attack drones, and to fly home when it is not used.", img: "assets/products/02-mjolnir.jpg", film: null },
+      { name: "Keraunos", role: "Interceptor", status: "In design", line: "Designed to stop jet-powered drones, at a price defenders can sustain.", img: "assets/products/03-keraunos.jpg", film: null },
+      { name: "Keraunos NATO", role: "Hardened interceptor", status: "Planned", line: "A shielded, hardened class, planned for higher-value threats.", img: "assets/products/04-keraunos-nato.jpg", film: null },
+      { name: "Intelligence", role: "Flight control AI", status: "In development", line: "The flight AI built to fly every Aegis Stratos aircraft. Our own flight controller is in design.", img: "assets/products/05-flight-controller.jpg", film: null },
+      { name: "Aegis motor", role: "Rocket motor", status: "Planned", line: "A small rocket motor of our own, planned for Keraunos.", img: "assets/products/06-aegis-motor.jpg", film: null },
+      { name: "Humanoid research", role: "Research", status: "Research", line: "The same flight AI could go further in time: robots for hazardous work.", img: "assets/products/07-humanoid-prototype.jpg", film: null }
     ]
   },
 
@@ -86,8 +88,16 @@ window.SITE = {
       "We are designing the parts that matter ourselves, so that we can change them quickly. And a person authorises every consequential action.",
       "Our first aircraft has flown. Field trials come next.",
       "Our ambition is to become a £3bn defence product company, and to make protection affordable for those who need it.",
-      "AI for peace. Built for protection."
+      "Protection through innovation."
     ]
+  },
+
+  filmsSection: {
+    id: "films",
+    nav: "Films",
+    kicker: "Watch",
+    title: "The films, <b>in full.</b>",
+    sub: "Each film on its own, full screen, with player controls."
   },
 
   contact: {

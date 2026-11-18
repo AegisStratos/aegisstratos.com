@@ -13,10 +13,21 @@
 <meta property="og:url" content="https://aegisstratos.com/">
 <meta property="og:image" content="https://aegisstratos.com/assets/og.jpg">
 <link rel="icon" href="assets/logos/badge.png">
-<link rel="preload" href="assets/fonts/Montserrat-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip" href="#chapters">Skip to content</a>
+<!-- Cookie banner -->
+<div id="cookies" role="dialog" aria-label="Cookies" hidden>
+  <p><strong>Your choices.</strong> We store your sound and privacy choices on this device so the site works. With your permission we also count visits, without cookies, to improve the site.</p>
+  <div>
+    <button class="btn ghost small" id="cookies-essential">Essential only</button>
+    <button class="btn gold small" id="cookies-all">Accept all</button>
+  </div>
+</div>
+
+
 
 <!-- Fixed film stage: one video element plays every chapter film -->
 <div id="stage" aria-hidden="true">
@@ -25,7 +36,7 @@
 </div>
 
 <header id="top">
-  <a class="brand" href="#hero" aria-label="Aegis Stratos, back to top"><img src="assets/logos/badge.png" alt="Aegis Stratos" width="64" height="64"></a>
+  <a class="brand" href="#hero" aria-label="Aegis Stratos, back to top"><img src="assets/logos/badge.png" alt="Aegis Stratos" width="104" height="104"></a>
   <nav id="nav" aria-label="Sections"></nav>
   <button id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
 </header>
@@ -36,7 +47,8 @@
 <!-- Film controls -->
 <div id="controls" hidden>
   <button id="play-btn" aria-label="Play film"><svg viewBox="0 0 24 24" width="28" height="28"><path id="play-icon" d="M7 4l14 8-14 8z" fill="currentColor"/></svg></button>
-  <button id="sound-btn" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span><span id="sound-label">Tap for sound</span></button>
+  <div class="pills"><button id="cc-btn" aria-pressed="false" aria-label="Captions">CC</button><button id="pause-btn">Pause</button>
+  <button id="sound-btn" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span><span id="sound-label">Tap for sound</span></button></div>
   <div id="film-progress"><i></i></div>
 </div>
 
@@ -44,7 +56,6 @@
   <section id="hero">
     <div class="hero-art" id="hero-art"></div>
     <div class="hero-inner">
-      <img class="lockup" src="assets/logos/lockup-gold.png" alt="Aegis Stratos" width="220">
       <p class="kicker" id="hero-kicker"></p>
       <h1 id="hero-title"></h1>
       <p class="lede" id="hero-sub"></p>
@@ -71,15 +82,12 @@
   <video id="player-video" playsinline controls></video>
 </dialog>
 
-<!-- Cookie banner -->
-<div id="cookies" role="dialog" aria-label="Cookies" hidden>
-  <p><strong>Your choices.</strong> We store your sound and privacy choices on this device so the site works. With your permission we also count visits, without cookies, to improve the site.</p>
-  <div>
-    <button class="btn ghost small" id="cookies-essential">Essential only</button>
-    <button class="btn gold small" id="cookies-all">Accept all</button>
+<noscript>
+  <div style="max-width:720px;margin:0 auto;padding:40px 20px;color:#fff;font-family:Arial,sans-serif">
+    <h1>Aegis Stratos: protection through innovation</h1>
+    <p>We build Physical AI to protect people and critical infrastructure from the drone threat, at a price defenders can sustain. This site uses JavaScript to play its films. To get in touch, please use the <a href="https://formspree.io/f/mwpakdbb">contact form</a>.</p>
   </div>
-</div>
-
+</noscript>
 <script src="site.config.js"></script>
 <script src="app.js"></script>
 </body>

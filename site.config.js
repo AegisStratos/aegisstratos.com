@@ -14,7 +14,7 @@ window.SITE = {
   analytics: { cloudflareToken: "", requireConsent: true },
 
   hero: {
-    kicker: "Counter-drone defence · Physical AI",
+    kicker: "Counter-drone defence · Physical AI · Made in Britain",
     title: "Protection through <b>innovation.</b>",
     sub: "We build Physical AI to protect people and critical infrastructure from the drone threat, at a price defenders can sustain.",
     art: "assets/products/01-metatron.jpg"
@@ -63,13 +63,33 @@ window.SITE = {
     sub: "Aircraft, interceptors and one flight AI, with our own controller and motor in development. A person authorises every consequential action.",
     note: "Concept illustrations, not designs.",
     items: [
-      { name: "Metatron", role: "Surveillance aircraft", status: "Prototype flown", line: "A reusable aircraft built to watch over people and places, and to report faithfully what it sees.", img: "assets/products/01-metatron.jpg", film: null },
-      { name: "Mjolnir", role: "Reusable interceptor", status: "In design", line: "Designed to stop slower attack drones, and to fly home when it is not used.", img: "assets/products/02-mjolnir.jpg", film: null },
-      { name: "Keraunos", role: "Interceptor", status: "In design", line: "Designed to stop jet-powered drones, at a price defenders can sustain.", img: "assets/products/03-keraunos.jpg", film: null },
-      { name: "Keraunos NATO", role: "Hardened interceptor", status: "Planned", line: "A shielded, hardened class, planned for higher-value threats.", img: "assets/products/04-keraunos-nato.jpg", film: null },
-      { name: "Intelligence", role: "Flight control AI", status: "In development", line: "The flight AI built to fly every Aegis Stratos aircraft. Our own flight controller is in design.", img: "assets/products/05-flight-controller.jpg", film: null },
-      { name: "Aegis motor", role: "Rocket motor", status: "Planned", line: "A small rocket motor of our own, planned for Keraunos.", img: "assets/products/06-aegis-motor.jpg", film: null },
-      { name: "Humanoid research", role: "Research", status: "Research", line: "The same flight AI could go further in time: robots for hazardous work.", img: "assets/products/07-humanoid-prototype.jpg", film: null }
+      { name: "Metatron", role: "Surveillance aircraft", status: "Prototype flown", line: "A reusable aircraft built to watch over people and places, and to report faithfully what it sees.", img: "assets/products/01-metatron.jpg", detail: "A medium-sized aircraft that takes off, watches and comes home to fly again. It carries the sensors for the task. Intelligence, our flight control AI, is being built to fly it.", facts: [["Purpose", "Watch, search and report"], ["Reusable", "Designed to be reusable"]], film: null },
+      { name: "Mjolnir", role: "Reusable interceptor", status: "In development", line: "Designed to stop slower attack drones, and to fly home when it is not used.", img: "assets/products/02-mjolnir.jpg", detail: "An interceptor built on the Metatron platform for slower, propeller-driven attack drones. If it is launched and not needed, it returns to be used again.", facts: [["Purpose", "Stop slower attack drones"], ["Reusable", "Designed to be reusable"]], film: null },
+      { name: "Keraunos", role: "Interceptor", status: "In development", line: "Designed to stop jet-powered drones, at a price defenders can sustain.", img: "assets/products/03-keraunos.jpg", detail: "A one-way, rocket-propelled interceptor for fast, jet-powered drones. It is being designed around our own airframe, flight controller and rocket motor.", facts: [["Purpose", "Stop jet-powered drones"], ["Reusable", "No, one-way"]], film: null },
+      { name: "Keraunos NATO", role: "Hardened interceptor", status: "Planned", line: "A shielded, hardened class, planned for higher-value threats.", img: "assets/products/04-keraunos-nato.jpg", detail: "The Keraunos design in a shielded, hardened form for higher-value threats, planned around a hardened version of our own flight controller.", facts: [["Purpose", "Higher-value threats"], ["Reusable", "No, one-way"]], film: null },
+      { name: "Intelligence", role: "Flight control AI", status: "In development", line: "The flight AI built to fly every Aegis Stratos aircraft. Our own flight controller boards are in development.", img: "assets/products/05-flight-controller.jpg", detail: "One flight control AI shared by every aircraft, so an improvement to one reaches all of them. It will run on our own flight controller boards, which we will produce in Britain.", facts: [["Purpose", "Flies every aircraft"], ["Hardware", "Our own controller boards"]], film: null },
+      { name: "Aegis motor", role: "Rocket motor", status: "In development", line: "Our own solid-fuel rocket motor, built to power Keraunos.", img: "assets/products/06-aegis-motor.jpg", detail: "A small solid-fuel rocket motor of our own, to power Keraunos. We will manufacture it in Britain.", facts: [["Purpose", "Powers Keraunos"], ["Made", "In Britain"]], film: null },
+      { name: "Humanoid research", role: "Research", status: "Research", line: "The same flight AI could go further in time: robots for hazardous work.", img: "assets/products/07-humanoid-prototype.jpg", detail: "Longer-term research into taking the same flight AI beyond aircraft, into robots that can do hazardous work in place of people.", facts: [["Purpose", "Hazardous work"], ["Stage", "Research"]], film: null }
+    ]
+  },
+
+  made: {
+    id: "made",
+    nav: "Made in Britain",
+    kicker: "Made in Britain",
+    title: "Designed in Britain. <em>Made in Britain.</em>",
+    sub: "A British-Swedish company with a NATO supply chain.",
+    band: ["Made in Britain", "NATO supply chain", "British and Swedish owned", "UK-first sourcing"],
+    pillars: [
+      { title: "Made in Britain", text: "Our aircraft are designed and built in Britain, and our production will be too. The people who design each part work beside the people who make it." },
+      { title: "A NATO supply chain", text: "We buy from the United Kingdom first, then from NATO allies. Our supply chain is being built to contain no critical parts from outside the alliance." },
+      { title: "British and Swedish owned", text: "Aegis Stratos is a British-Swedish company, registered in the United Kingdom, with British and Swedish ownership." },
+      { title: "Unique in defence", text: "No other defence company is built this way. One flight AI serves every aircraft. The airframe, flight controller and rocket motor are all being designed under one roof." }
+    ],
+    buildingKicker: "What we are bringing in-house",
+    building: [
+      { title: "Solid-fuel rocket motors", status: "In development", img: "assets/products/06-aegis-motor.jpg", text: "We are developing our own solid-fuel rocket motors and will manufacture them in the United Kingdom." },
+      { title: "Flight controller boards", status: "In development", img: "assets/products/05-flight-controller.jpg", text: "We are designing our own flight controller boards and will produce them in the United Kingdom." }
     ]
   },
 

@@ -5,6 +5,15 @@
   const h = (tag, attrs = {}, html = "") => { const e = document.createElement(tag); for (const k in attrs) e.setAttribute(k, attrs[k]); e.innerHTML = html; return e; };
   const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Phones held upright get the portrait cut of a film when one exists
+  const portraitMQ = matchMedia("(orientation: portrait) and (max-width: 820px)");
+  const pick = f => (portraitMQ.matches && f.portrait) ? { src: f.portrait, poster: f.posterPortrait || f.poster, portrait: true } : { src: f.src, poster: f.poster, portrait: false };
+  // Phones, tablets and every iPhone or iPad get a plain native video player inside each chapter.
+  // It is the most dependable way to play film on those devices. Wide desktop screens use the full-screen stage.
+  const ua = navigator.userAgent;
+  const inlineMode = matchMedia("(max-width: 820px)").matches || /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) || /[?&]inline=1/.test(location.search);
+  document.documentElement.classList.toggle("inline-films", inlineMode);
+  const inlineVideos = [];
   const pad = n => String(n).padStart(2, "0");
 
   /* ---------- Render ---------- */
@@ -40,7 +49,16 @@
       <div class="screen"></div>
       ${c.cta ? `<div class="outro"><div class="reveal"><p class="kicker">${c.kicker}</p><h3>${c.cta.line || c.sub || ""}</h3><a class="btn gold" href="#contact" data-enquiry="${c.cta.enquiry}">${c.cta.label}</a></div></div>` : ""}`);
     root.append(el);
-    sections.push({ id: c.id, el, screen: $(".screen", el), film: c.film, time: 0 });
+    const screen = $(".screen", el), sec = { id: c.id, el, screen, film: c.film, time: 0 };
+    if (inlineMode) {
+      const f = pick(c.film);
+      screen.classList.add("inline");
+      const v = h("video", { playsinline: "", "webkit-playsinline": "", muted: "", controls: "", preload: "metadata", poster: f.poster || "", src: f.src, style: `aspect-ratio:${f.portrait ? "9/16" : "16/9"}`, "aria-label": c.filmTitle || c.nav });
+      v.muted = true;
+      if (c.film.captions) v.append(h("track", { kind: "captions", srclang: "en", label: "English", src: c.film.captions }));
+      screen.append(v); sec.inline = v; inlineVideos.push(v);
+    }
+    sections.push(sec);
   };
 
   const textChapter = (c, paras, cls = "") => {
@@ -62,15 +80,34 @@
       <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${P.kicker}</p><h2>${P.title}</h2><p class="lede">${P.sub}</p>
         <div class="arrows"><button class="arrow" data-dir="-1" aria-label="Previous products">&larr;</button><button class="arrow" data-dir="1" aria-label="More products">&rarr;</button></div></div>
       <div class="track" tabindex="0" aria-label="Products">${P.items.map((it, i) => `
-        <${it.film ? "button" : "article"} class="card" ${it.film ? `data-film="${i}" aria-label="Play the ${it.name} film"` : ""}>
+        <article class="card">
           <div class="img"><img src="${it.img}" alt="${it.name} concept illustration" loading="lazy"></div>
-          ${it.film ? `<span class="play"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 4l14 8-14 8z" fill="currentColor"/></svg></span>` : ""}
-          <div class="txt"><p class="kicker">${it.role}</p>${it.status ? `<span class="status">${it.status}</span>` : ""}<h3>${it.name}</h3><p>${it.line}</p></div>
-        </${it.film ? "button" : "article"}>`).join("")}
+          ${it.film ? `<button class="play" data-film="${i}" aria-label="Play the ${it.name} film"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 4l14 8-14 8z" fill="currentColor"/></svg></button>` : ""}
+          <div class="txt"><p class="kicker">${it.role}</p>${it.status ? `<span class="status">${it.status}</span>` : ""}<h3>${it.name}</h3><p>${it.line}</p>
+            ${it.detail ? `<button class="more" aria-expanded="false" aria-controls="detail-${i}" aria-label="${it.name} details"><span>Details</span><i aria-hidden="true">+</i></button>
+            <div class="detail" id="detail-${i}" hidden><p>${it.detail}</p>${it.facts ? `<dl>${it.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : ""}</div>` : ""}
+          </div>
+        </article>`).join("")}
       </div>
       <p class="note">${P.note}</p>`);
     root.append(el);
     sections.push({ id: P.id, el });
+  }
+
+  // Made in Britain: where and how we build, and who owns the company
+  if (S.made) {
+    const M = S.made; n++;
+    addNav(M.id, M.nav);
+    const band = M.band.map(t => `<span>${t}</span>`).join("");
+    const el = h("section", { id: M.id }, `
+      <div class="band" aria-hidden="true"><div>${band}${band}${band}${band}</div></div>
+      <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${M.kicker}</p><h2>${M.title}</h2><p class="lede">${M.sub}</p></div>
+      <div class="pillars">${M.pillars.map(p => `<div class="pillar reveal"><h3>${p.title}</h3><p>${p.text}</p></div>`).join("")}</div>
+      <div class="building reveal"><p class="kicker">${M.buildingKicker}</p>
+        <div class="build-grid">${M.building.map(b => `<div class="build"><img src="${b.img}" alt="" loading="lazy"><div><span class="status">${b.status}</span><h3>${b.title}</h3><p>${b.text}</p></div></div>`).join("")}</div>
+      </div>`);
+    root.append(el);
+    sections.push({ id: M.id, el });
   }
 
   // Founders: optional film first, then the story
@@ -129,8 +166,6 @@
   const dbg = m => { if (!dbgEl) return; dbgLines.push(m); if (dbgLines.length > 14) dbgLines.shift(); dbgEl.textContent = `${innerWidth}x${innerHeight} portrait:${portraitMQ.matches} reduced:${reduced} sound:${soundOn}\n` + dbgLines.join("\n"); };
   const setMuted = m => { video.muted = m; video.toggleAttribute("muted", m); }; // iPhone checks the attribute as well as the property
   // Phones held upright get the portrait cut of a film when one exists
-  const portraitMQ = matchMedia("(orientation: portrait) and (max-width: 820px)");
-  const pick = f => (portraitMQ.matches && f.portrait) ? { src: f.portrait, poster: f.posterPortrait || f.poster, portrait: true } : { src: f.src, poster: f.poster, portrait: false };
 
   const setSound = on => {
     soundOn = on; setMuted(!on);
@@ -223,7 +258,41 @@
 
   /* ---------- Entry: one tap unlocks sound for every film ---------- */
   const firstFilm = sections.find(s => s.film);
+
+  /* ---------- Native players (phones, tablets, iPhone and iPad) ---------- */
+  if (inlineMode) {
+    const playing = new Set();
+    const io2 = new IntersectionObserver(es => es.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting && e.intersectionRatio >= 0.55) {
+        inlineVideos.forEach(o => { if (o !== v) o.pause(); });
+        if (!v.dataset.userPaused && !(reduced && !entered)) { const p = v.play(); if (p) p.then(() => dbg("inline playing " + (v.muted ? "muted" : "with sound"))).catch(err => dbg("inline play refused: " + err.name)); }
+      } else if (!v.paused) { v.dataset.auto = "1"; v.pause(); }
+    }), { threshold: [0, 0.55, 1] });
+    inlineVideos.forEach(v => {
+      io2.observe(v);
+      v.addEventListener("pause", () => { if (v.dataset.auto) delete v.dataset.auto; else if (!v.ended) v.dataset.userPaused = "1"; });
+      v.addEventListener("play", () => { delete v.dataset.userPaused; });
+      v.addEventListener("ended", () => { const sec = sections.find(x => x.inline === v), next = $(".outro", sec.el) || sec.el.nextElementSibling; if (next) next.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" }); });
+      v.addEventListener("error", () => dbg("inline video error code " + (v.error && v.error.code) + " " + (v.error && v.error.message || "")));
+      ["loadedmetadata", "canplay", "stalled", "waiting"].forEach(ev => v.addEventListener(ev, () => dbg("inline " + ev + " ready=" + v.readyState)));
+    });
+    addEventListener("error", e => dbg("script error: " + e.message));
+    document.addEventListener("visibilitychange", () => { if (document.hidden) inlineVideos.forEach(v => { if (!v.paused) { v.dataset.auto = "1"; v.pause(); } }); });
+  }
+
   const enter = withSound => {
+    if (inlineMode) {
+      // Start the first film inside the tap so it may play with sound, then bring it into view
+      entered = true; dbg("enter " + (withSound ? "with sound" : "muted") + " (native player)");
+      const v = inlineVideos[0];
+      if (!v) { sections[0].el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); return; }
+      v.muted = !withSound; v.toggleAttribute("muted", !withSound);
+      try { v.currentTime = 0; } catch {}
+      const p = v.play(); if (p) p.catch(err => dbg("enter play refused: " + err.name));
+      v.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+      return;
+    }
     setSound(withSound); store.set("aegis-sound", withSound ? "1" : "0");
     entered = true; enterHold = Date.now() + 3000; // keep the film running while the page scrolls down to it
     dbg("enter " + (withSound ? "with sound" : "muted"));
@@ -252,7 +321,7 @@
     let active = null, activeId = null;
     // Hero: the first film plays silently behind the opening headline
     const heroR = $("#hero").getBoundingClientRect();
-    const heroNow = innerWidth > 820 && innerHeight >= 600 && !reduced && !!firstFilm && sections[0] === firstFilm && heroR.bottom > vh * 0.55;
+    const heroNow = !inlineMode && innerWidth > 820 && innerHeight >= 600 && !reduced && !!firstFilm && sections[0] === firstFilm && heroR.bottom > vh * 0.55;
     if (heroNow !== heroMode) {
       heroMode = heroNow; showCaption();
       setControls();
@@ -269,7 +338,7 @@
     for (const s of sections) {
       const r = s.el.getBoundingClientRect();
       if (r.top <= mid && r.bottom > mid) activeId = s.id.replace("-text", "");
-      if (!s.film) continue;
+      if (!s.film || s.inline) continue;
       const sr = s.screen.getBoundingClientRect(); // the film plays while its clear screen is in view
       if (sr.top < vh * 0.6 && sr.bottom > vh * 0.4) active = s;
     }
@@ -307,6 +376,8 @@
   });
 
   root.addEventListener("click", e => {
+    const m = e.target.closest(".more");
+    if (m) { const d = document.getElementById(m.getAttribute("aria-controls")), open = d.hidden; d.hidden = !open; m.setAttribute("aria-expanded", open); m.querySelector("i").textContent = open ? "\u2212" : "+"; if (open) m.closest(".card").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest", inline: "nearest" }); return; }
     const a = e.target.closest(".arrow"); if (!a) return;
     const track = $("#products .track"), card = $(".card", track);
     track.scrollBy({ left: +a.dataset.dir * (card.offsetWidth + 18) * (innerWidth > 820 ? 2 : 1), behavior: reduced ? "auto" : "smooth" });

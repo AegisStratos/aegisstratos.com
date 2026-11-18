@@ -115,8 +115,8 @@ h1.h { font-size: clamp(40px, 7.4vw, 124px); }
 
 /* Act 2: products */
 .shot.product .frame { max-width: 54%; }
-.blueprint { position: absolute; right: -2%; top: 50%; width: min(58vw, 105vh); aspect-ratio: 1; object-fit: cover; transform: translateY(-50%) scale(.92); -webkit-mask-image: radial-gradient(closest-side, #000 58%, transparent); mask-image: radial-gradient(closest-side, #000 58%, transparent); transition: opacity 1s ease, transform 7s linear; }
-.blueprint.in { transform: translateY(-50%) scale(1.08); opacity: 1; }
+.blueprint { mix-blend-mode: lighten; position: absolute; right: 2%; top: 50%; width: min(56vw, 112vh); aspect-ratio: 3 / 2; object-fit: contain; transform: translateY(-50%) scale(.94); -webkit-mask-image: radial-gradient(ellipse closest-side, #000 80%, transparent); mask-image: radial-gradient(ellipse closest-side, #000 80%, transparent); transition: opacity 1s ease, transform 7s linear; }
+.blueprint.in { transform: translateY(-50%) scale(1.02); opacity: 1; }
 .lockup { width: clamp(150px, 20vh, 260px); }
 
 /* Act 3 */
@@ -156,8 +156,8 @@ h1.h { font-size: clamp(40px, 7.4vw, 124px); }
 
 /* Act 4 */
 #act-britain .bg::after { background: linear-gradient(90deg, rgba(10,26,47,.96) 0%, rgba(10,26,47,.78) 50%, rgba(10,26,47,.1) 100%), linear-gradient(0deg, rgba(10,26,47,.5), rgba(10,26,47,0) 30%); }
-.pair { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); display: flex; gap: 2vw; width: 40vw; }
-.pair img { width: 50%; aspect-ratio: 1; object-fit: cover; border-radius: 18px; border: 1px solid rgba(212,175,55,.5); }
+.pair { position: absolute; right: 5%; top: 52%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 2vh; width: min(32vw, 52vh); }
+.pair img { width: 100%; aspect-ratio: 3 / 2; object-fit: contain; border-radius: 18px; border: 1px solid rgba(212,175,55,.5); }
 #act-britain .shot[data-from="1"] .frame { max-width: 52%; }
 
 /* Act 5: the team. Hard cuts, very large type */
@@ -194,7 +194,7 @@ select option { color: #000; }
 .track::-webkit-scrollbar { display: none; }
 .card { flex: 0 0 min(76vw, 340px); scroll-snap-align: start; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: rgba(255,255,255,.03); transition: border-color .3s; }
 .card:hover { border-color: var(--gold); }
-.card .img { aspect-ratio: 4 / 3; overflow: hidden; }
+.card .img { aspect-ratio: 3 / 2; overflow: hidden; }
 .card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
 .card:hover img { transform: scale(1.06); }
 .card .txt { padding: 20px 22px 24px; display: grid; gap: 8px; }
@@ -245,14 +245,15 @@ dialog { border: 0; padding: 0; }
   .bg { background-position: 62% 100%; }
   .bg::after { background: linear-gradient(180deg, rgba(10,26,47,.96) 0%, rgba(10,26,47,.86) 48%, rgba(10,26,47,.12) 100%); }
   .hero-frame, #act-britain .frame, #act-britain .shot[data-from="1"] .frame, #act-threat .shot[data-from="0"] .frame { justify-content: flex-start; padding-top: 5vh; padding-bottom: 0; }
-  .pair { top: auto; bottom: 7vh; width: 78vw; }
+  .pair { top: auto; bottom: 7vh; width: 78vw; flex-direction: row; gap: 3vw; }
+  .pair img { width: 50%; }
   .trio { grid-template-columns: 1fr; gap: 2.2vh; }
   .trio .num { font-size: clamp(54px, 17vw, 90px); display: flex; align-items: baseline; gap: 12px; }
   .trio .num small { margin: 0; }
   .trio .goldcol .num { font-size: clamp(48px, 15vw, 80px); }
   .shot.product .frame, .loopshot .frame, #act-britain .shot[data-from="1"] .frame { max-width: none; justify-content: flex-end; padding-bottom: 9vh; }
-  .blueprint { right: 50%; top: 2%; width: min(118vw, 56vh); transform: translate(50%, 0) scale(.92); }
-  .blueprint.in { transform: translate(50%, 0) scale(1.06); }
+  .blueprint { right: 50%; top: 4%; width: min(100vw, 66vh); transform: translate(50%, 0) scale(.94); }
+  .blueprint.in { transform: translate(50%, 0) scale(1); }
   .ring { right: 50%; top: 5%; width: min(74vw, 40vh); transform: translate(50%, 0); }
   .ring.in { transform: translate(50%, 0); }
   .ring text { font-size: 18px; }
@@ -282,7 +283,7 @@ dialog { border: 0; padding: 0; }
   .btn.small { padding: 0 12px; font-size: 9.5px; letter-spacing: .1em; }
 }
 /* Phone held sideways and other very short screens */
-@media (max-height: 520px) { :root { --top: 48px; } .brand { transform: scale(.7); transform-origin: left center; } .frame { padding: 1vh var(--gutter) 2vh; gap: 6px; } .mega { font-size: 22vh; } h1.h, .h.huge, .h.big, .h.name { font-size: 10vh; } .h, .h.mid { font-size: 7vh; } .statement { font-size: 9.5vh; } .triple { font-size: 12vh; flex-direction: row; } .verb { font-size: 9vh; } .blueprint { width: 70vh; top: 50%; right: -2%; transform: translateY(-50%); } .blueprint.in { transform: translateY(-50%) scale(1.06); } .three, .pair, .scroll-cue { display: none; } .btn { white-space: nowrap; } .shot.product .frame, .loopshot .frame { max-width: 56%; justify-content: center; padding-bottom: 2vh; } .ring { right: 4%; top: 50%; width: 70vh; transform: translateY(-50%); } .ring.in { transform: translateY(-50%); } }
+@media (max-height: 520px) { :root { --top: 48px; } .brand { transform: scale(.7); transform-origin: left center; } .frame { padding: 1vh var(--gutter) 2vh; gap: 6px; } .mega { font-size: 22vh; } h1.h, .h.huge, .h.big, .h.name { font-size: 10vh; } .h, .h.mid { font-size: 7vh; } .statement { font-size: 9.5vh; } .triple { font-size: 12vh; flex-direction: row; } .verb { font-size: 9vh; } .blueprint { width: 96vh; top: 54%; right: 1%; transform: translateY(-50%); } .blueprint.in { transform: translateY(-50%) scale(1); } .three, .pair, .scroll-cue { display: none; } .btn { white-space: nowrap; } .shot.product .frame, .loopshot .frame { max-width: 56%; justify-content: center; padding-bottom: 2vh; } .ring { right: 4%; top: 50%; width: 70vh; transform: translateY(-50%); } .ring.in { transform: translateY(-50%); } }
 
 /* Reduced motion: every beat simply appears */
 @media (prefers-reduced-motion: reduce) {

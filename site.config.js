@@ -3,7 +3,7 @@
   Everything the page shows is driven from this file.
 
   To turn a film on, set its `film` field:
-    film: { src: "assets/films/name.mp4", captions: "assets/films/name.vtt", poster: "assets/posters/name.jpg" }
+    film: { src: "assets/films/name.mp4?v=3", captions: "assets/films/name.vtt", poster: "assets/posters/name.jpg" }
   To turn it off, set `film: null`. The page lays itself out so that nothing looks missing.
 */
 window.SITE = {
@@ -28,7 +28,7 @@ window.SITE = {
       kicker: "Physical AI · A product company",
       title: "Not a line. <em>A loop.</em>",
       sub: "Why defence needs a product company, and what Physical AI makes possible.",
-      film: { previewFrom: 4, src: "assets/films/physical-ai.mp4", portrait: "assets/films/physical-ai-portrait.mp4", captions: "assets/films/physical-ai.vtt", poster: "assets/posters/physical-ai.jpg", posterPortrait: "assets/posters/physical-ai-portrait.jpg" }, // investor film v2.1
+      film: { previewFrom: 4, src: "assets/films/physical-ai.mp4?v=3", portrait: "assets/films/physical-ai-portrait.mp4?v=3", captions: "assets/films/physical-ai.vtt", poster: "assets/posters/physical-ai.jpg", posterPortrait: "assets/posters/physical-ai-portrait.jpg" }, // investor film v2.1
       cta: { label: "Investor enquiries", enquiry: "Investor enquiry", line: "Defence can move at <em>the speed of the threat.</em>" }
     },
     {
@@ -38,7 +38,7 @@ window.SITE = {
       kicker: "For defenders",
       title: "Defenders are not losing on skill. <em>They are losing on cost.</em>",
       sub: "Interceptors priced against the threat, not against a missile. Aircraft that come home and fly again.",
-      film: { src: "assets/films/customers.mp4", portrait: "assets/films/customers-portrait.mp4", captions: "assets/films/customers.vtt", poster: "assets/posters/customers.jpg", posterPortrait: "assets/posters/customers-portrait.jpg" },
+      film: { src: "assets/films/customers.mp4?v=3", portrait: "assets/films/customers-portrait.mp4?v=3", captions: "assets/films/customers.vtt", poster: "assets/posters/customers.jpg", posterPortrait: "assets/posters/customers-portrait.jpg" },
       cta: { label: "Request a briefing", enquiry: "Customer briefing", line: "Protection you can afford <em>to keep using.</em>" }
     }
     ,{

@@ -109,5 +109,5 @@ window.SITE = {
     enquiries: ["Customer briefing", "Investor enquiry", "Partnership", "General enquiry"]
   },
 
-  footer: "Product images are concept illustrations, not designs. Statements about the future are ambitions, not forecasts."
+  footer: "The product images here are concept illustrations, and our plans for the future are ambitions we are working towards."
 };

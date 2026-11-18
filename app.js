@@ -122,13 +122,18 @@
   /* ---------- Film stage ---------- */
   const stage = $("#stage"), video = $("#film"), dim = $("#stage-dim"), controls = $("#controls");
   const soundBtn = $("#sound-btn"), soundLabel = $("#sound-label"), playBtn = $("#play-btn"), bar = $("#film-progress i");
-  let ccOn = false, soundOn = false, current = null, userPaused = false, heroMode = false, heroLeft = false;
+  let ccOn = false, soundOn = false, current = null, userPaused = false, heroMode = false, heroLeft = false, entered = false, enterHold = 0;
+  // On-screen diagnostics: add ?debug=1 to the address to see what the film player is doing on this device
+  const dbgEl = /[?&]debug=1/.test(location.search) ? document.body.appendChild(h("pre", { style: "position:fixed;z-index:99;left:0;right:0;top:76px;margin:0;padding:6px 8px;background:rgba(0,0,0,.8);color:#0f0;font:11px/1.3 monospace;white-space:pre-wrap;pointer-events:none;max-height:42vh;overflow:hidden" })) : null;
+  const dbgLines = [];
+  const dbg = m => { if (!dbgEl) return; dbgLines.push(m); if (dbgLines.length > 14) dbgLines.shift(); dbgEl.textContent = `${innerWidth}x${innerHeight} portrait:${portraitMQ.matches} reduced:${reduced} sound:${soundOn}\n` + dbgLines.join("\n"); };
+  const setMuted = m => { video.muted = m; video.toggleAttribute("muted", m); }; // iPhone checks the attribute as well as the property
   // Phones held upright get the portrait cut of a film when one exists
   const portraitMQ = matchMedia("(orientation: portrait) and (max-width: 820px)");
   const pick = f => (portraitMQ.matches && f.portrait) ? { src: f.portrait, poster: f.posterPortrait || f.poster, portrait: true } : { src: f.src, poster: f.poster, portrait: false };
 
   const setSound = on => {
-    soundOn = on; video.muted = !on;
+    soundOn = on; setMuted(!on);
     soundBtn.setAttribute("aria-pressed", on);
     soundLabel.textContent = on ? "Sound on" : "Tap for sound";
     showCaption();
@@ -145,12 +150,14 @@
   const setEnded = v => { controls.classList.toggle("ended", v); current?.el.classList.toggle("ended", v); playBtn.setAttribute("aria-label", v ? "Replay film" : "Play film"); };
 
   const play = () => {
-    if (reduced && !current?.started) { controls.classList.add("paused"); return; } // reduced motion: wait for a tap
-    video.muted = !soundOn;
+    // Reduced motion: wait for a tap, unless the visitor has already pressed Enter (that is their go-ahead to play films)
+    if (reduced && !entered && !current?.started) { controls.classList.add("paused"); dbg("reduced motion: waiting for tap"); return; }
+    setMuted(!soundOn);
     const p = video.play();
-    if (p) p.then(() => { if (current) current.started = true; }).catch(() => {
+    if (p) p.then(() => { if (current) current.started = true; dbg("playing " + (video.muted ? "muted" : "with sound")); }).catch(err => {
+      dbg("play refused: " + err.name);
       // Browser refused sound without a tap: carry on muted and ask for the tap
-      if (soundOn) { setSound(false); video.play().catch(() => controls.classList.add("paused")); }
+      if (soundOn) { setSound(false); video.play().then(() => dbg("playing muted (fallback)")).catch(e2 => { dbg("muted play refused: " + e2.name); controls.classList.add("paused"); }); }
       else controls.classList.add("paused");
     });
   };
@@ -160,8 +167,13 @@
     video.querySelectorAll("track").forEach(t => t.remove());
     const f = pick(sec.film);
     stage.classList.toggle("portrait", f.portrait);
+    const same = video.dataset.film === f.src; // same film as last time: keep it loaded (and keep the tap that unlocked sound)
+    dbg((same ? "resume " : "load ") + f.src.split("/").pop());
+    if (same) { video.classList.remove("swap"); return; }
+    video.dataset.film = f.src;
     video.poster = f.poster || "";
     video.src = f.src;
+    setTimeout(() => video.classList.remove("swap"), 450); // never leave the film hidden if the phone will not load it until tapped
     if (sec.film.captions) {
       const tr = h("track", { kind: "captions", srclang: "en", label: "English", src: sec.film.captions });
       video.append(tr); tr.track.mode = "hidden"; tr.track.addEventListener("cuechange", showCaption);
@@ -184,6 +196,8 @@
   };
   portraitMQ.addEventListener("change", () => { if (current) { const s = current; s.time = video.currentTime; current = null; activate(s); } });
   video.addEventListener("playing", () => document.body.classList.add("film-live"));
+  video.addEventListener("error", () => dbg("video error code " + (video.error && video.error.code) + " " + (video.error && video.error.message || "")));
+  ["stalled", "waiting", "loadedmetadata", "canplay", "pause", "ended"].forEach(ev => video.addEventListener(ev, () => dbg(ev + " t=" + video.currentTime.toFixed(1) + " ready=" + video.readyState)));
 
   video.addEventListener("timeupdate", () => { if (video.duration) bar.style.width = (video.currentTime / video.duration * 100) + "%"; });
   video.addEventListener("play", () => { controls.classList.remove("paused"); setEnded(false); pauseBtn.textContent = "Pause"; });
@@ -211,12 +225,14 @@
   const firstFilm = sections.find(s => s.film);
   const enter = withSound => {
     setSound(withSound); store.set("aegis-sound", withSound ? "1" : "0");
+    entered = true; enterHold = Date.now() + 3000; // keep the film running while the page scrolls down to it
+    dbg("enter " + (withSound ? "with sound" : "muted"));
     if (firstFilm) {
       // Start the first film from the top inside the tap, so it and every later film may play with sound (required on iPhone)
       if (current !== firstFilm) activate(firstFilm);
       firstFilm.time = 0; firstFilm.started = true; heroLeft = true;
       try { video.currentTime = 0; } catch {}
-      video.muted = !withSound;
+      setMuted(!withSound);
       const p = video.play(); if (p) p.catch(() => {});
     }
     (firstFilm ? firstFilm.screen : sections[0].el).scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
@@ -258,6 +274,7 @@
       if (sr.top < vh * 0.6 && sr.bottom > vh * 0.4) active = s;
     }
     dim.style.opacity = 0;
+    if (!active && firstFilm && Date.now() < enterHold) active = firstFilm;
     activate(active);
     rail.style.opacity = active && !heroMode ? 0 : 1; // nothing over a playing film
     setControls();

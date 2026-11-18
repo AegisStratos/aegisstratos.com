@@ -25,7 +25,11 @@
 
   const root = $("#chapters"), nav = $("#nav"), rail = $("#rail");
   const sections = []; // {id, el, film?}
-  const words = t => t.split(" ").map(w => `<span>${w}</span>`).join(" ");
+  // Words light up one by one as the reader scrolls. [Square brackets] mark a phrase that lights in bold gold.
+  const words = t => t.split(/(\[[^\]]+\])/).filter(Boolean).map(part => {
+    const gold = part[0] === "[", txt = gold ? part.slice(1, -1) : part;
+    return txt.trim().split(/\s+/).map(w => `<span${gold ? ' class="g"' : ""}>${w}</span>`).join(" ");
+  }).join(" ");
   let n = 0;
 
   const addNav = (id, label) => {
@@ -94,21 +98,8 @@
     sections.push({ id: P.id, el });
   }
 
-  // Made in Britain: where and how we build, and who owns the company
-  if (S.made) {
-    const M = S.made; n++;
-    addNav(M.id, M.nav);
-    const band = M.band.map(t => `<span>${t}</span>`).join("");
-    const el = h("section", { id: M.id }, `
-      <div class="band" aria-hidden="true"><div>${band}${band}${band}${band}</div></div>
-      <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${M.kicker}</p><h2>${M.title}</h2><p class="lede">${M.sub}</p></div>
-      <div class="pillars">${M.pillars.map(p => `<div class="pillar reveal"><h3>${p.title}</h3><p>${p.text}</p></div>`).join("")}</div>
-      <div class="building reveal"><p class="kicker">${M.buildingKicker}</p>
-        <div class="build-grid">${M.building.map(b => `<div class="build"><img src="${b.img}" alt="" loading="lazy"><div><span class="status">${b.status}</span><h3>${b.title}</h3><p>${b.text}</p></div></div>`).join("")}</div>
-      </div>`);
-    root.append(el);
-    sections.push({ id: M.id, el });
-  }
+  // Made in Britain: told as scroll-lit statements, in the same voice as the films and the founders' story
+  if (S.made) { addNav(S.made.id, S.made.nav); textChapter(S.made, S.made.lines); }
 
   // Founders: optional film first, then the story
   {
@@ -116,6 +107,7 @@
     addNav(F.id, F.nav);
     if (F.film) { filmChapter({ ...F, id: F.id, sub: "" }); n--; textChapter({ ...F, id: F.id + "-text" }, F.paragraphs, "story"); }
     else textChapter(F, F.paragraphs, "story");
+    if (F.cta) sections[sections.length - 1].el.append(h("a", { class: "btn gold", href: "#contact", "data-enquiry": F.cta.enquiry }, F.cta.label));
   }
 
   // Films: each film on its own, in a plain player with full controls
@@ -146,7 +138,8 @@
     const C = S.contact; n++;
     addNav(C.id, C.nav);
     const el = h("section", { id: C.id }, `
-      <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${C.kicker}</p><h2>${C.title}</h2><p class="lede">${C.sub}</p></div>
+      <div class="head reveal"><div class="num">${pad(n)}</div><p class="kicker">${C.kicker}</p><h2>${C.title}</h2><p class="lede">${C.sub}</p>
+        ${C.points ? `<ul class="points">${C.points.map(x => `<li>${x}</li>`).join("")}</ul>` : ""}${C.reply ? `<p class="reply">${C.reply}</p>` : ""}</div>
       <form id="contact-form" class="reveal" novalidate method="POST" action="${S.contactEndpoint}">
         <label>Enquiry <select name="enquiry">${C.enquiries.map(e => `<option>${e}</option>`).join("")}</select></label>
         <label>Name <input name="name" required autocomplete="name"></label>
@@ -174,7 +167,7 @@
   const setSound = on => {
     soundOn = on; setMuted(!on);
     soundBtn.setAttribute("aria-pressed", on);
-    soundLabel.textContent = on ? "Sound on" : "Tap for sound";
+    soundLabel.textContent = on ? "Sound on" : "Turn sound on";
     showCaption();
   };
   // Captions are drawn by the page (not the browser) so they sit clear of the film and the buttons. Shown when sound is off.
@@ -218,6 +211,7 @@
       video.append(tr); tr.track.mode = "hidden"; tr.track.addEventListener("cuechange", showCaption);
     }
     video.addEventListener("loadedmetadata", () => {
+      if (sec === firstFilm && !entered && !sec.time && innerWidth > 820 && sec.film.previewFrom) { try { video.currentTime = sec.film.previewFrom; } catch {} }
       if (sec.time && sec.time < video.duration - 1) video.currentTime = sec.time;
       setSound(soundOn);
       video.classList.remove("swap");
@@ -347,12 +341,12 @@
       if (r.top <= mid && r.bottom > mid) activeId = s.id.replace("-text", "");
       if (!s.film || s.inline) continue;
       const sr = s.screen.getBoundingClientRect(); // the film plays while its clear screen is in view
-      if (sr.top < vh * 0.6 && sr.bottom > vh * 0.4) active = s;
+      if (sr.top < vh * 0.6 && sr.bottom > vh * 0.62) active = s; // stops once the closing panel covers a third of the screen
     }
     dim.style.opacity = 0;
     if (!active && firstFilm && Date.now() < enterHold) active = firstFilm;
     activate(active);
-    rail.style.opacity = active && !heroMode ? 0 : 1; // nothing over a playing film
+    rail.style.opacity = active ? 0 : 1; // nothing over or beside a playing film
     setControls();
 
     for (const l of lits) {
@@ -411,7 +405,7 @@
   const form = $("#contact-form"), statusEl = $("#status");
   form.addEventListener("submit", async e => {
     e.preventDefault();
-    if (!form.checkValidity()) { statusEl.textContent = "Please complete your name, email and message."; form.reportValidity(); return; }
+    if (!form.checkValidity()) { form.reportValidity(); return; }
     statusEl.textContent = "Sending.";
     const fd = new FormData(form);
     fd.append("_subject", fd.get("enquiry") + " via website");

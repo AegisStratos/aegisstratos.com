@@ -28,8 +28,8 @@ window.SITE = {
       kicker: "Physical AI · A product company",
       title: "Not a line. <em>A loop.</em>",
       sub: "Why defence needs a product company, and what Physical AI makes possible.",
-      film: { src: "assets/films/physical-ai.mp4", portrait: "assets/films/physical-ai-portrait.mp4", captions: "assets/films/physical-ai.vtt", poster: "assets/posters/physical-ai.jpg", posterPortrait: "assets/posters/physical-ai-portrait.jpg" }, // investor film v2.1
-      cta: { label: "Investor enquiries", enquiry: "Investor enquiry", line: "Defence can move at the speed of the threat." }
+      film: { previewFrom: 4, src: "assets/films/physical-ai.mp4", portrait: "assets/films/physical-ai-portrait.mp4", captions: "assets/films/physical-ai.vtt", poster: "assets/posters/physical-ai.jpg", posterPortrait: "assets/posters/physical-ai-portrait.jpg" }, // investor film v2.1
+      cta: { label: "Investor enquiries", enquiry: "Investor enquiry", line: "Defence can move at <em>the speed of the threat.</em>" }
     },
     {
       id: "customers",
@@ -39,7 +39,7 @@ window.SITE = {
       title: "Defenders are not losing on skill. <em>They are losing on cost.</em>",
       sub: "Interceptors priced against the threat, not against a missile. Aircraft that come home and fly again.",
       film: { src: "assets/films/customers.mp4", portrait: "assets/films/customers-portrait.mp4", captions: "assets/films/customers.vtt", poster: "assets/posters/customers.jpg", posterPortrait: "assets/posters/customers-portrait.jpg" },
-      cta: { label: "Request a briefing", enquiry: "Customer briefing", line: "Protection you can afford to keep using." }
+      cta: { label: "Request a briefing", enquiry: "Customer briefing", line: "Protection you can afford <em>to keep using.</em>" }
     }
     ,{
       // AGENTIC CODE FACTORY FILM: switched off until the film exists. Set `film` to switch the whole chapter on.
@@ -60,11 +60,11 @@ window.SITE = {
     nav: "Products",
     kicker: "Products",
     title: "One platform. <b>One brain.</b>",
-    sub: "Aircraft, interceptors and one flight AI, with our own controller and motor in development. A person authorises every consequential action.",
+    sub: "One flight AI flies them all. Improve it once and every aircraft improves. A person authorises every consequential action.",
     note: "Concept illustrations, not designs.",
     items: [
-      { name: "Metatron", role: "Surveillance aircraft", status: "Prototype flown", line: "A reusable aircraft built to watch over people and places, and to report faithfully what it sees.", img: "assets/products/01-metatron.jpg", detail: "A medium-sized aircraft that takes off, watches and comes home to fly again. It carries the sensors for the task. Intelligence, our flight control AI, is being built to fly it.", facts: [["Purpose", "Watch, search and report"], ["Reusable", "Designed to be reusable"]], film: null },
-      { name: "Mjolnir", role: "Reusable interceptor", status: "In development", line: "Designed to stop slower attack drones, and to fly home when it is not used.", img: "assets/products/02-mjolnir.jpg", detail: "An interceptor built on the Metatron platform for slower, propeller-driven attack drones. If it is launched and not needed, it returns to be used again.", facts: [["Purpose", "Stop slower attack drones"], ["Reusable", "Designed to be reusable"]], film: null },
+      { name: "Metatron", role: "Surveillance aircraft", status: "Prototype flown", line: "A reusable aircraft built to watch over people and places, and to report faithfully what it sees.", img: "assets/products/01-metatron.jpg", detail: "A medium-sized aircraft that takes off, watches and comes home to fly again. It carries the sensors for the task. Intelligence, our flight control AI, is being built to fly it.", facts: [["Purpose", "Watch, search and report"], ["Reusable", "Yes"]], film: null },
+      { name: "Mjolnir", role: "Reusable interceptor", status: "In development", line: "Designed to stop slower attack drones, and to fly home when it is not used.", img: "assets/products/02-mjolnir.jpg", detail: "An interceptor built on the Metatron platform for slower, propeller-driven attack drones. If it is launched and not needed, it returns to be used again.", facts: [["Purpose", "Stop slower attack drones"], ["Reusable", "Yes"]], film: null },
       { name: "Keraunos", role: "Interceptor", status: "In development", line: "Designed to stop jet-powered drones, at a price defenders can sustain.", img: "assets/products/03-keraunos.jpg", detail: "A one-way, rocket-propelled interceptor for fast, jet-powered drones. It is being designed around our own airframe, flight controller and rocket motor.", facts: [["Purpose", "Stop jet-powered drones"], ["Reusable", "No, one-way"]], film: null },
       { name: "Keraunos NATO", role: "Hardened interceptor", status: "Planned", line: "A shielded, hardened class, planned for higher-value threats.", img: "assets/products/04-keraunos-nato.jpg", detail: "The Keraunos design in a shielded, hardened form for higher-value threats, planned around a hardened version of our own flight controller.", facts: [["Purpose", "Higher-value threats"], ["Reusable", "No, one-way"]], film: null },
       { name: "Intelligence", role: "Flight control AI", status: "In development", line: "The flight AI built to fly every Aegis Stratos aircraft. Our own flight controller boards are in development.", img: "assets/products/05-flight-controller.jpg", detail: "One flight control AI shared by every aircraft, so an improvement to one reaches all of them. It will run on our own flight controller boards, which we will produce in Britain.", facts: [["Purpose", "Flies every aircraft"], ["Hardware", "Our own controller boards"]], film: null },
@@ -78,18 +78,12 @@ window.SITE = {
     nav: "Made in Britain",
     kicker: "Made in Britain",
     title: "Designed in Britain. <em>Made in Britain.</em>",
-    sub: "A British-Swedish company with a NATO supply chain.",
-    band: ["Made in Britain", "NATO supply chain", "British and Swedish owned", "UK-first sourcing"],
-    pillars: [
-      { title: "Made in Britain", text: "Our aircraft are designed and built in Britain, and our production will be too. The people who design each part work beside the people who make it." },
-      { title: "A NATO supply chain", text: "We buy from the United Kingdom first, then from NATO allies. Our supply chain is being built to contain no critical parts from outside the alliance." },
-      { title: "British and Swedish owned", text: "Aegis Stratos is a British-Swedish company, registered in the United Kingdom, with British and Swedish ownership." },
-      { title: "Unique in defence", text: "No other defence company is built this way. One flight AI serves every aircraft. The airframe, flight controller and rocket motor are all being designed under one roof." }
-    ],
-    buildingKicker: "What we are bringing in-house",
-    building: [
-      { title: "Solid-fuel rocket motors", status: "In development", img: "assets/products/06-aegis-motor.jpg", text: "We are developing our own solid-fuel rocket motors and will manufacture them in the United Kingdom." },
-      { title: "Flight controller boards", status: "In development", img: "assets/products/05-flight-controller.jpg", text: "We are designing our own flight controller boards and will produce them in the United Kingdom." }
+    lines: [
+      "Our aircraft are designed and built here. Our production will be too.",
+      "We are developing [our own solid-fuel rocket motors] and [our own flight controller boards.] We will manufacture both in the United Kingdom.",
+      "Our supply chain sits [inside NATO.] The United Kingdom first, then our allies.",
+      "We are [British and Swedish owned:] two nations with a long record of building aircraft.",
+      "No other defence company is built this way."
     ]
   },
 
@@ -109,23 +103,26 @@ window.SITE = {
       "Our first aircraft has flown. Field trials come next.",
       "Our ambition is to become a £3bn defence product company, and to make protection affordable for those who need it.",
       "Protection through innovation."
-    ]
+    ],
+    cta: { label: "Request a briefing", enquiry: "Customer briefing" }
   },
 
   filmsSection: {
     id: "films",
     nav: "Films",
     kicker: "Watch",
-    title: "The films, <b>in full.</b>",
-    sub: "Each film on its own, full screen, with player controls."
+    title: "Watch it <b>end to end.</b>",
+    sub: "Two films. Under five minutes. The whole argument."
   },
 
   contact: {
     id: "contact",
     nav: "Contact",
     kicker: "Contact",
-    title: "Talk <b>to us.</b>",
-    sub: "For customer briefings, partnership and investor enquiries.",
+    title: "Tell us what you need <b>to protect.</b>",
+    sub: "We would like to hear from you.",
+    points: ["Customer briefings", "Investor enquiries", "Partnerships"],
+    reply: "We reply within two working days.",
     enquiries: ["Customer briefing", "Investor enquiry", "Partnership", "General enquiry"]
   },
 

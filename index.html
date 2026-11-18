@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Aegis Stratos | Protection through innovation</title>
-<meta name="description" content="Aegis Stratos builds Physical AI to protect people and critical infrastructure from the drone threat, at a price defenders can sustain.">
+<title>Aegis Stratos | The Physical AI defence company</title>
+<meta name="description" content="Aegis Stratos is the Physical AI defence company. AI-flown interceptors that stop attack drones at a cost defenders can sustain. Designed and made in Britain.">
 <meta name="theme-color" content="#0A1A2F">
 <link rel="canonical" href="https://aegisstratos.com/">
-<meta property="og:title" content="Aegis Stratos | Protection through innovation">
-<meta property="og:description" content="Physical AI to protect people and critical infrastructure from the drone threat, at a price defenders can sustain.">
+<meta property="og:title" content="Aegis Stratos | The Physical AI defence company">
+<meta property="og:description" content="AI-flown interceptors that stop attack drones at a cost defenders can sustain. Designed and made in Britain.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://aegisstratos.com/">
 <meta property="og:image" content="https://aegisstratos.com/assets/og.jpg">
 <link rel="icon" href="assets/logos/badge.png">
 <link rel="preload" href="assets/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=20261118024518">
+<link rel="stylesheet" href="styles.css?v=20261118091021">
 </head>
 <body>
-<a class="skip" href="#chapters">Skip to content</a>
-<!-- Cookie banner -->
-<div id="cookies" role="dialog" aria-label="Cookies" hidden>
+<a class="skip" href="#work">Skip to contact</a>
+
+<div id="cookies" role="dialog" aria-label="Your choices" hidden>
   <p><strong>Your choices.</strong> We store your sound and privacy choices on this device so the site works. With your permission we also count visits, without cookies, to improve the site.</p>
   <div>
     <button class="btn ghost small" id="cookies-essential">Essential only</button>
@@ -27,55 +27,264 @@
   </div>
 </div>
 
-
-
-<!-- Fixed film stage: one video element plays every chapter film -->
-<div id="stage" aria-hidden="true">
-  <video id="film" playsinline webkit-playsinline preload="metadata"></video>
-  <div id="stage-dim"></div>
-</div>
-
 <header id="top">
-  <a class="brand" href="#hero" aria-label="Aegis Stratos, back to top"><img src="assets/logos/badge.png" alt="Aegis Stratos" width="104" height="104"></a>
-  <nav id="nav" aria-label="Sections"></nav>
-  <button id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+  <a class="brand" href="#journey" aria-label="Aegis Stratos, back to top"><img src="assets/logos/badge.png" alt="Aegis Stratos" width="104" height="104"></a>
+  <nav id="nav" aria-label="Sections">
+    <a href="#build">Physical AI</a>
+    <a href="#loop">The company</a>
+    <a href="#britain">Made in Britain</a>
+    <a href="#team">The team</a>
+    <a href="#films">Films</a>
+  </nav>
+  <div class="top-actions">
+    <button id="sound-btn" aria-pressed="false" hidden><span class="eq"><i></i><i></i><i></i></span><span id="sound-label">Sound</span></button>
+    <a class="btn gold small" href="#work" data-door="Customer briefing">Request a briefing</a>
+  </div>
+  <div id="progress" aria-hidden="true"><i></i></div>
 </header>
 
-<div id="rail" aria-hidden="true"></div>
-<div id="caption" aria-live="off"></div>
+<!--
+  THE JOURNEY. The page is the film: each act is a full-screen scene and scrolling moves it from beat to beat.
+  All words are real text here, so they are readable without scripts and by search engines.
+  data-beats = number of beats in the act. A .shot is on screen from beat data-from to data-to.
+  Inside a shot, an element with data-at="n" animates in at beat n.
+-->
+<main>
+<div id="journey">
+  <div id="theatre">
 
-<!-- Film controls -->
-<div id="controls" hidden>
-  <button id="play-btn" aria-label="Play film"><svg viewBox="0 0 24 24" width="28" height="28"><path id="play-icon" d="M7 4l14 8-14 8z" fill="currentColor"/></svg></button>
-  <div class="pills"><button id="cc-btn" aria-pressed="false" aria-label="Captions">CC</button><button id="pause-btn">Pause</button>
-  <button id="sound-btn" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span><span id="sound-label">Tap for sound</span></button></div>
-  <div id="film-progress"><i></i></div>
+    <!-- HERO -->
+    <section class="act" id="act-hero" data-beats="1" aria-label="Aegis Stratos">
+      <div class="bg" data-img="hero"></div>
+      <div class="shot" data-from="0" data-to="0">
+        <div class="frame hero-frame">
+          <p class="kicker" data-at="0">Physical AI for defence</p>
+          <h1 class="h" data-at="0">Protection through <em>innovation.</em></h1>
+          <p class="lede" data-at="0" style="--delay:.6s">The Physical AI, agentic product company for defence. Made in Britain.</p>
+          <p class="cta-row" data-at="0" style="--delay:1.1s"><button class="btn gold" id="hero-sound" hidden>Play with sound</button></p>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
+      </div>
+    </section>
+
+    <!-- ACT 1: THE THREAT -->
+    <section class="act" id="act-threat" data-beats="3" aria-label="The threat">
+      <div class="bg" data-img="power" data-until="1"></div>
+      <div class="shot" data-from="0" data-to="1">
+        <i class="goldbar" data-at="0"></i>
+        <div class="frame">
+          <p class="kicker grey" data-at="0">Tonight, in Europe</p>
+          <h2 class="h mid" data-at="0">A drone that cost</h2>
+          <p class="mega gold" data-at="0"><span data-count="35000" data-prefix="$">$35,000</span></p>
+          <h2 class="h mid" data-at="1">is flying at a <b>power station.</b></h2>
+          <svg class="flight" data-at="1" viewBox="0 0 600 120" aria-hidden="true"><line class="path" x1="10" y1="60" x2="470" y2="60"/><circle class="blip" cx="10" cy="60" r="7"/><circle class="target t1" cx="540" cy="60" r="46"/><circle class="target t2" cx="540" cy="60" r="20"/></svg>
+        </div>
+      </div>
+      <div class="shot" data-from="2" data-to="2">
+        <i class="goldbar" data-at="2"></i>
+        <div class="frame">
+          <p class="kicker grey" data-at="2">The wrong answer</p>
+          <h2 class="h mid" data-at="2">The missile that stops it costs <b>100 times</b> <em>more.</em></h2>
+          <div class="bars">
+            <p class="label" data-at="2">The drone</p>
+            <div class="bar small" data-at="2"><i></i><b>$35k</b></div>
+            <p class="label" data-at="2">The missile</p>
+            <div class="bar big" data-at="2"><i></i></div>
+            <p class="slam gold" data-at="2">100×</p>
+          </div>
+          <p class="line" data-at="2" style="--delay:2.8s">Defenders are not losing on skill. They are losing on cost.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 2: PHYSICAL AI -->
+    <section class="act" id="act-build" data-beats="6" aria-label="Physical AI">
+      <div class="shot" data-from="0" data-to="0">
+        <div class="frame centre">
+          <p class="kicker" data-at="0">Our answer</p>
+          <h2 class="h big" data-at="0"><b>Physical AI.</b></h2>
+          <p class="triple"><span data-at="0" style="--delay:.5s">Sense.</span><span data-at="0" style="--delay:.9s">Decide.</span><span class="gold" data-at="0" style="--delay:1.3s">Act.</span></p>
+          <p class="line" data-at="0" style="--delay:1.8s">The AI came first. Everything we fly is designed around it.</p>
+        </div>
+      </div>
+      <div class="shot product" data-from="1" data-to="1">
+        <img class="blueprint" src="assets/products/05-flight-controller.jpg" alt="" data-at="1">
+        <div class="frame"><p class="kicker" data-at="1">Intelligence</p><h2 class="h big" data-at="1"><b>One brain</b> across <em>everything we fly.</em></h2><p class="line" data-at="1" style="--delay:.8s">Improve it once. Every product improves.</p></div>
+      </div>
+      <div class="shot product" data-from="2" data-to="2">
+        <img class="blueprint" src="assets/products/01-metatron.jpg" alt="" data-at="2">
+        <div class="frame"><p class="kicker" data-at="2">The range</p><h2 class="h name" data-at="2"><b>Metatron</b></h2><p class="verb" data-at="2" style="--delay:.4s">watches.</p></div>
+      </div>
+      <div class="shot product" data-from="3" data-to="3">
+        <img class="blueprint" src="assets/products/02-mjolnir.jpg" alt="" data-at="3">
+        <div class="frame"><p class="kicker" data-at="3">The range</p><h2 class="h name" data-at="3"><b>Mjolnir</b></h2><p class="verb" data-at="3" style="--delay:.4s">intercepts.</p></div>
+      </div>
+      <div class="shot product" data-from="4" data-to="4">
+        <img class="blueprint" src="assets/products/03-keraunos.jpg" alt="" data-at="4">
+        <div class="frame"><p class="kicker" data-at="4">The range</p><h2 class="h name" data-at="4"><b>Keraunos</b></h2><p class="verb gold" data-at="4" style="--delay:.4s">strikes.</p><p class="line" data-at="4" style="--delay:.9s">Keraunos NATO, hardened for the hardest threats.</p></div>
+      </div>
+      <div class="shot" data-from="5" data-to="5">
+        <div class="frame centre">
+          <p class="kicker" data-at="5">Where we are</p>
+          <h2 class="h huge" data-at="5">Flying <b>today.</b></h2>
+          <h2 class="h huge" data-at="5" style="--delay:.45s">Field trials <em>next.</em></h2>
+          <p class="line" data-at="5" style="--delay:1.1s">Interceptors priced against the drone, not the missile.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 3: THE COMPANY. The claim "no other defence company is built this way" is earned here, step by step. -->
+    <section class="act" id="act-loop" data-beats="4" aria-label="The company">
+      <div class="shot" data-from="0" data-to="0">
+        <div class="frame">
+          <p class="kicker" data-at="0">The speed gap</p>
+          <div class="trio">
+            <div data-at="0" style="--delay:.2s"><p class="label">Tesla</p><p class="num">30<small>seconds</small></p><p class="cap">to finish a car</p></div>
+            <div data-at="0" style="--delay:.7s"><p class="label">BYD</p><p class="num">7<small>seconds</small></p><p class="cap">to finish a car</p></div>
+            <div class="goldcol" data-at="0" style="--delay:1.3s"><p class="label">The West</p><p class="num">Years</p><p class="cap">to build a missile</p></div>
+          </div>
+          <p class="line" data-at="0" style="--delay:2s">The people are not slow. The model is.</p>
+        </div>
+      </div>
+      <div class="shot loopshot" data-from="1" data-to="1">
+        <div class="frame">
+          <p class="kicker" data-at="1">A product company</p>
+          <h2 class="h big" data-at="1">Not a programme. <em>A loop.</em></h2>
+          <p class="line" data-at="1" style="--delay:.8s">The model Apple, Tesla and BYD proved. Build, learn, build again.</p>
+        </div>
+        <svg class="ring" data-at="1" viewBox="0 0 400 400" aria-hidden="true">
+          <circle class="track" cx="200" cy="200" r="150"/>
+          <g class="stations"><circle cx="200" cy="50" r="9"/><circle cx="350" cy="200" r="9"/><circle cx="200" cy="350" r="9"/><circle cx="50" cy="200" r="9"/></g>
+          <text x="200" y="26" text-anchor="middle">DISCOVER</text><text x="368" y="205" text-anchor="start">BUILD</text><text x="200" y="388" text-anchor="middle">LEARN</text><text x="32" y="205" text-anchor="end">IMPROVE</text>
+          <g class="orbit"><circle cx="200" cy="50" r="11"/></g>
+        </svg>
+      </div>
+      <div class="shot" data-from="2" data-to="2">
+        <i class="goldbar" data-at="2"></i>
+        <div class="frame">
+          <p class="kicker" data-at="2">Agentic</p>
+          <h2 class="h big" data-at="2">AI agents build. <em>People approve.</em></h2>
+          <div class="pipeline four">
+            <span data-at="2" style="--delay:.5s">Agents design</span><span data-at="2" style="--delay:.8s">Agents test</span><span data-at="2" style="--delay:1.1s">Agents document</span><span class="goldbox" data-at="2" style="--delay:1.5s">People approve</span>
+          </div>
+          <p class="line" data-at="2" style="--delay:1.9s">New capability every eight weeks.</p>
+        </div>
+      </div>
+      <div class="shot" data-from="3" data-to="3">
+        <div class="frame centre">
+          <p class="kicker" data-at="3">What we are</p>
+          <h2 class="h big" data-at="3">A <b>Physical AI,</b> agentic <b>product company.</b></h2>
+          <p class="three" data-at="3" style="--delay:.9s"><span>AI in the machine.</span><span>AI agents in the factory.</span><span>A loop, not a programme.</span></p>
+          <h2 class="h big" data-at="3" style="--delay:1.6s"><em>No other defence company is built this way.</em></h2>
+          <p class="cta-row" data-at="3" style="--delay:2.4s"><a class="btn ghost" href="#work" data-door="Investor enquiry">Investor enquiries</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 4: MADE IN BRITAIN -->
+    <section class="act" id="act-britain" data-beats="3" aria-label="Made in Britain">
+      <div class="bg" data-img="britain"></div>
+      <div class="shot" data-from="0" data-to="0">
+        <div class="frame">
+          <p class="kicker" data-at="0">Made in Britain</p>
+          <h2 class="h huge" data-at="0">Designed in Britain.</h2>
+          <h2 class="h huge" data-at="0" style="--delay:.5s"><em>Made in Britain.</em></h2>
+        </div>
+      </div>
+      <div class="shot" data-from="1" data-to="1">
+        <div class="frame">
+          <p class="kicker" data-at="1">Ours to build</p>
+          <h2 class="h big" data-at="1"><b>Our own</b> rocket motors. <b>Our own</b> <em>flight controllers.</em></h2>
+          <p class="line" data-at="1" style="--delay:1s">We own the parts that matter, so we own the pace.</p>
+        </div>
+        <div class="pair"><img src="assets/products/06-aegis-motor.jpg" alt="" data-at="1" style="--delay:.4s"><img src="assets/products/05-flight-controller.jpg" alt="" data-at="1" style="--delay:.7s"></div>
+      </div>
+      <div class="shot" data-from="2" data-to="2">
+        <div class="frame">
+          <p class="kicker" data-at="2">Yours to depend on</p>
+          <h2 class="h big" data-at="2">A supply chain <b>inside NATO.</b> <em>British and Swedish owned.</em></h2>
+          <p class="line" data-at="2" style="--delay:1s">Nothing that can be switched off from outside the alliance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 5: THE TEAM -->
+    <section class="act team" id="act-team" data-beats="3" aria-label="The team">
+      <div class="shot" data-from="0" data-to="0"><div class="frame"><p class="kicker" data-at="0">The team</p><h2 class="statement" data-at="0">We have built AI at <em>global scale.</em></h2><p class="line" data-at="0" style="--delay:.4s">Senior roles leading AI transformation inside global, multi-billion-dollar AI product companies.</p></div></div>
+      <div class="shot" data-from="1" data-to="1"><div class="frame"><p class="kicker" data-at="1">The team</p><h2 class="statement" data-at="1">We have served in an <b>air force</b> and <em>planned inside NATO.</em></h2><p class="line" data-at="1" style="--delay:.4s">We know the threat from the inside.</p></div></div>
+      <div class="shot" data-from="2" data-to="2"><div class="frame"><p class="kicker" data-at="2">The team</p><h2 class="statement" data-at="2">We know how defence <em>buys.</em></h2><p class="line" data-at="2" style="--delay:.4s">Commercial leadership across the defence industry. AI, uniform, industry. One team.</p></div></div>
+    </section>
+
+    <!-- ACT 6: THE AMBITION -->
+    <section class="act" id="act-next" data-beats="2" aria-label="The ambition">
+      <div class="shot product" data-from="0" data-to="0">
+        <img class="blueprint" src="assets/products/07-humanoid-prototype.jpg" alt="" data-at="0">
+        <div class="frame"><p class="kicker" data-at="0">Where this goes</p><h2 class="h big" data-at="0">The same brain <em>goes further.</em></h2><p class="line" data-at="0" style="--delay:.8s">Drones first. Humanoid robots in time. One loop.</p></div>
+      </div>
+      <div class="shot" data-from="1" data-to="1">
+        <div class="frame centre">
+          <p class="kicker" data-at="1">Our ambition</p>
+          <p class="mega gold" data-at="1">£3bn</p>
+          <h2 class="h mid" data-at="1" style="--delay:.5s">A <b>£3bn</b> defence product company.</h2>
+          <p class="line" data-at="1" style="--delay:1.1s">Protection through innovation.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <!-- Scroll anchors, positioned by script at the start of each act -->
+  <i class="anchor" id="build" data-act="act-build"></i><i class="anchor" id="loop" data-act="act-loop"></i><i class="anchor" id="britain" data-act="act-britain"></i><i class="anchor" id="team" data-act="act-team"></i>
 </div>
 
-<main id="main">
-  <section id="hero">
-    <div class="hero-art" id="hero-art"></div>
-    <div class="hero-inner">
-      <p class="kicker" id="hero-kicker"></p>
-      <h1 id="hero-title"></h1>
-      <p class="lede" id="hero-sub"></p>
-      <div class="hero-actions">
-        <button class="btn gold" id="enter-sound">Enter with sound</button>
-        <button class="btn ghost" id="enter-muted">Enter without sound</button>
-      </div>
-    </div>
-    <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
-  </section>
-  <div id="chapters"></div>
+<!-- WORK WITH US -->
+<section id="work" class="band">
+  <div class="head">
+    <p class="kicker">Work with us</p>
+    <h2 class="h2">Defend, invest or build. <em>With us.</em></h2>
+    <p class="lede">Customers, investors, partners and people who want to join. Start here.</p>
+  </div>
+  <div class="doors">
+    <button class="door" data-door="Customer briefing"><span class="kicker">Defend</span><strong>Request a briefing</strong><span>See what we can protect, and how soon.</span></button>
+    <button class="door" data-door="Investor enquiry"><span class="kicker">Invest</span><strong>Investor enquiries</strong><span>Back the product company defence has been missing.</span></button>
+    <button class="door" data-door="Partner or join"><span class="kicker">Build</span><strong>Partner or join</strong><span>Suppliers, allies and engineers who want to move at this speed.</span></button>
+  </div>
+  <form id="contact-form" novalidate method="POST" action="https://formspree.io/f/mwpakdbb">
+    <label>I want to <select name="enquiry"><option>Customer briefing</option><option>Investor enquiry</option><option>Partner or join</option><option>General enquiry</option></select></label>
+    <label>Name <input name="name" required autocomplete="name"></label>
+    <label>Email <input type="email" name="email" required autocomplete="email"></label>
+    <label class="wide">Message <textarea name="message" required rows="4"></textarea></label>
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <div class="wide send"><button class="btn gold" type="submit">Send message</button><p class="reply">We reply within two working days.</p><div id="status" role="status" aria-live="polite"></div></div>
+  </form>
+</section>
+
+<!-- THE RANGE -->
+<section id="range" class="band">
+  <div class="head">
+    <p class="kicker">The range</p>
+    <h2 class="h2">One brain. <b>Every product.</b></h2>
+    <div class="arrows"><button class="arrow" data-dir="-1" aria-label="Previous products">&larr;</button><button class="arrow" data-dir="1" aria-label="More products">&rarr;</button></div>
+  </div>
+  <div class="track" id="range-track" tabindex="0" aria-label="Products"></div>
+</section>
+
+<!-- THE FILMS -->
+<section id="films" class="band cinema">
+  <div class="head">
+    <p class="kicker">Watch</p>
+    <h2 class="h2">The story, in our <em>own voice.</em></h2>
+  </div>
+  <div class="film-grid" id="film-grid"></div>
+</section>
 </main>
 
 <footer>
   <img src="assets/logos/badge.png" alt="" width="64" height="64">
   <p class="foot-tag">Protection through <b>innovation.</b></p>
   <p class="legal">© 2026 Aegis Stratos Ltd, London, United Kingdom.</p>
-  <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="#" id="cookie-settings">Cookie settings</a></nav>
-  <p id="footer-note"></p>
-  <p id="build" style="font-size:11px;opacity:.5">Build 18 Nov 02:45</p>
+  <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="#" id="cookie-settings">Your choices</a></nav>
+  <p id="footer-note">Our plans for the future are ambitions we are working towards.</p>
+  <p id="buildstamp" style="font-size:11px;opacity:.5">Build 18 Nov 09:10</p>
 </footer>
 
 <!-- Contact form: the "I'm not a robot" step happens here, on this site -->
@@ -87,19 +296,6 @@
   <iframe id="verify-frame" name="verify-frame" title="Robot check"></iframe>
 </dialog>
 
-<!-- Product film player (used when a product film is switched on) -->
-<dialog id="player">
-  <button id="player-close" aria-label="Close film">Close</button>
-  <video id="player-video" playsinline controls></video>
-</dialog>
-
-<noscript>
-  <div style="max-width:720px;margin:0 auto;padding:40px 20px;color:#fff;font-family:Arial,sans-serif">
-    <h1>Aegis Stratos: protection through innovation</h1>
-    <p>We build Physical AI to protect people and critical infrastructure from the drone threat, at a price defenders can sustain. This site uses JavaScript to play its films. To get in touch, please use the <a href="https://formspree.io/f/mwpakdbb">contact form</a>.</p>
-  </div>
-</noscript>
-<script src="site.config.js?v=20261118024518"></script>
-<script src="app.js?v=20261118024518"></script>
+<script src="app.js?v=20261118091021"></script>
 </body>
 </html>

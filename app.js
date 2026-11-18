@@ -28,8 +28,8 @@
       { title: "The agentic code factory", length: "", src: null, portrait: null },
       { title: "The founders", length: "", src: null, portrait: null }
     ],
-    // Narration for the journey: one audio file, one stretch per act (seconds). Empty = no sound button.
-    voice: { src: "assets/voice/journey.m4a", acts: {"act-hero": [0.02, 6.65], "act-threat": [8.02, 18.81], "act-build": [20.02, 30.49], "act-loop": [32.02, 49.45], "act-britain": [51.02, 60.45], "act-team": [62.02, 70.73], "act-next": [72.02, 81.85]} },
+    // Narration for the journey: one audio file, one stretch per card ("act id/beat": [start, end] in seconds). Empty src = no sound button.
+    voice: { src: "assets/voice/journey.m4a?v=2", cards: {"act-hero/0": [0.02, 7.48], "act-threat/0": [8.52, 13.58], "act-threat/1": [14.52, 16.86], "act-threat/2": [18.02, 25.24], "act-build/0": [26.02, 31.56], "act-build/1": [32.52, 39.42], "act-build/2": [40.52, 43.18], "act-build/3": [44.02, 48.2], "act-build/4": [49.02, 55.35], "act-build/5": [56.52, 59.58], "act-loop/0": [60.52, 70.46], "act-loop/1": [71.52, 80.58], "act-loop/2": [81.52, 86.82], "act-loop/3": [88.02, 93.8], "act-britain/0": [94.52, 97.58], "act-britain/1": [98.52, 105.26], "act-britain/2": [106.02, 110.44], "act-team/0": [111.52, 120.5], "act-team/1": [121.52, 127.38], "act-team/2": [128.52, 133.82], "act-next/0": [135.02, 141.12], "act-next/1": [142.02, 148.36]} },
     range: [
       { name: "Intelligence", role: "Flight control AI", status: "In development", img: "assets/products/05-flight-controller.jpg", line: "One flight AI across every product. Improve it once and everything we fly improves." },
       { name: "Metatron", role: "Surveillance", status: "Prototype flown", img: "assets/products/01-metatron.jpg", line: "Watches, searches and reports. Then comes home to fly again." },
@@ -104,10 +104,10 @@
   const frame = () => {
     ticking = false;
     const y = scrollY - journey.offsetTop;
-    const inJourney = y < total - 1;
+    const inJourney = y < total + innerHeight - theatre.offsetTop - 2; // the last card holds while "Work with us" slides up over it
     theatre.classList.toggle("off", !inJourney);
     progressBar.style.width = (clamp(y / total) * 100) + "%";
-    if (!inJourney) { if (current) { current.el.classList.remove("on"); current = null; voiceStop(); } navLinks.forEach(l => l.classList.remove("active")); return; }
+    if (!inJourney) { if (current) { current.el.classList.remove("on"); current = null; voiceKey = ""; voiceStop(); } navLinks.forEach(l => l.classList.remove("active")); return; }
     let a = acts[0];
     for (const x of acts) if (y >= x.start) a = x;
     const p = clamp((y - a.start) / a.len);
@@ -115,10 +115,10 @@
     if (a !== current) {
       if (current) { current.el.classList.remove("on"); setBeat(current, -1); }
       current = a; a.el.classList.add("on");
-      voiceAct(a.id);
       navLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + ({ "act-build": "build", "act-loop": "loop", "act-britain": "britain", "act-team": "team" }[a.id] || "")));
     }
     setBeat(a, beat);
+    voiceCard(a.id, beat);
     a.el.style.setProperty("--p", p.toFixed(3));
   };
   let ticking = false;
@@ -143,29 +143,53 @@
     }
   });
 
-  /* ---------- Optional narration: one audio element, started inside the visitor's tap, one stretch per act ---------- */
+  /* ---------- Optional narration, in step with the card on screen ----------
+     One audio element, started inside the visitor's tap (phones only allow sound that way), with one stretch of audio per card.
+     After "Play with sound" the journey plays itself like a film: when a card's line ends, the page moves on to the next card.
+     The moment the visitor scrolls by hand, they are in control and each card simply speaks as it arrives. */
   const soundBtn = $("#sound-btn"), voice = new Audio();
-  let soundOn = false, voiceEnd = 0;
+  let soundOn = false, voiceEnd = 0, voiceKey = "", autoplay = false, advanceTimer = 0;
   voice.preload = "none";
-  const voiceStop = () => { if (!voice.paused) voice.pause(); };
-  function voiceAct(id) {
-    if (!soundOn) return;
-    const seg = SITE.voice.acts[id];
-    if (!seg) { voiceStop(); return; }
+  const voiceStop = () => { clearTimeout(advanceTimer); voiceEnd = 0; if (!voice.paused) voice.pause(); };
+  const cardY = (a, beat) => journey.offsetTop + a.start + (beat + 0.5) / a.beats * a.len;
+  const nextCard = () => {
+    if (!current) return null;
+    if (current.beat < current.beats - 1) return [current, current.beat + 1];
+    const n = acts[acts.indexOf(current) + 1];
+    return n ? [n, 0] : null;
+  };
+  function voiceCard(id, beat) {
+    const key = id + "/" + beat;
+    if (!soundOn || key === voiceKey) return;
+    voiceKey = key; clearTimeout(advanceTimer);
+    const seg = SITE.voice.cards[key];
+    if (!seg) { voiceEnd = 0; if (!voice.paused) voice.pause(); return; }
     voiceEnd = seg[1];
     try { voice.currentTime = seg[0]; } catch {}
     voice.play().catch(() => {});
   }
-  voice.addEventListener("timeupdate", () => { if (voiceEnd && voice.currentTime >= voiceEnd) voice.pause(); });
+  function voiceAct() {} // kept for the engine's act-change hook; cards drive the narration
+  voice.addEventListener("timeupdate", () => {
+    if (!voiceEnd || voice.currentTime < voiceEnd) return;
+    voiceEnd = 0; voice.pause();
+    if (!autoplay || !soundOn) return;
+    const n = nextCard();
+    if (n) advanceTimer = setTimeout(() => { if (autoplay && soundOn) scrollTo({ top: cardY(n[0], n[1]), behavior: reduced ? "auto" : "smooth" }); }, 450);
+  });
+  // Any hand scroll hands control back to the visitor
+  ["wheel", "touchmove", "keydown"].forEach(ev => addEventListener(ev, e => { if (ev === "keydown" && !["ArrowDown", "ArrowUp", "PageDown", "PageUp", " ", "Home", "End"].includes(e.key)) return; autoplay = false; clearTimeout(advanceTimer); }, { passive: true }));
   if (SITE.voice.src) {
     soundBtn.hidden = false; voice.src = SITE.voice.src;
     const heroSound = $("#hero-sound");
-    const setSoundUI = () => { soundBtn.setAttribute("aria-pressed", soundOn); $("#sound-label").textContent = soundOn ? "Sound on" : "Sound"; if (heroSound) heroSound.textContent = soundOn ? "Sound is on" : "Play with sound"; };
+    const setSoundUI = () => { soundBtn.setAttribute("aria-pressed", soundOn); $("#sound-label").textContent = soundOn ? "Sound on" : "Sound"; if (heroSound) heroSound.textContent = soundOn ? "Playing with sound" : "Play with sound"; };
     const toggleSound = () => {
       soundOn = !soundOn; setSoundUI();
-      // The first play must happen inside this tap: that is what lets later acts speak by themselves on phones
-      if (soundOn) { const seg = current && SITE.voice.acts[current.id]; if (seg) { voiceEnd = seg[1]; try { voice.currentTime = seg[0]; } catch {} } voice.play().catch(() => { soundOn = false; setSoundUI(); }); }
-      else voiceStop();
+      if (!soundOn) { autoplay = false; voiceKey = ""; voiceStop(); return; }
+      // The first play must happen inside this tap: that is what lets later cards speak by themselves on phones
+      autoplay = true; voiceKey = "";
+      const seg = current && SITE.voice.cards[current.id + "/" + Math.max(0, current.beat)];
+      if (seg) { voiceKey = current.id + "/" + Math.max(0, current.beat); voiceEnd = seg[1]; try { voice.currentTime = seg[0]; } catch {} }
+      voice.play().then(() => { if (!seg) voice.pause(); }).catch(() => { soundOn = false; autoplay = false; setSoundUI(); });
     };
     soundBtn.addEventListener("click", toggleSound);
     if (heroSound) { heroSound.hidden = false; heroSound.addEventListener("click", toggleSound); }
